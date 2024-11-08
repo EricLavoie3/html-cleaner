@@ -10,6 +10,14 @@ body {
     width: 1920 px;
 }
 
+h2{
+    font-size: 16px;
+}
+
+ul{
+    margin-top:8px;
+}
+
 ul#actions > li {
     display: inline-block;
     /* You can also add some margins here to make it look prettier */
@@ -21,5 +29,52 @@ div#errors-list{
     background-color:#f3e9e8;
     margin:10px 0 20px;
 }
+
+details[open] > summary {
+    margin-bottom: 15px;
+}
+
+details[open]>summary {
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    list-style-type: disclosure-open;
+    margin-bottom: .25em;
+}
+details summary {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #295376;
+    padding: 5px 15px;
+}
+details>summary {
+    margin-left: -1.1em;
+    margin-right: -1.1em;
+}
+summary {
+    display: list-item !important;
+    list-style-type: none;
+    list-style-type: disclosure-closed;
+    visibility: visible !important;
+}
+summary{
+    cursor: pointer;
+}
+details {
+    padding-left: 1.1em;
+    padding-right: 1.1em;
+    margin-bottom: .7em;
+}
+
+details[open] {
+    padding-bottom: 10px;
+}
+
+details[open] {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
 
 #actions, #actions li{margin:0 0 5px 0; padding:0; }
