@@ -283,6 +283,7 @@ $(document).ready(function(){
             .replace(/&nbsp;+<\/td>/g, "</td>")  //removes space before td
             .replace(/\s+<\/th>/g, "</th>")  //removes space before th
             .replace(/&nbsp;+<\/th>/g, "</th>")  //removes space before th
+            .replace(/<h(\d)>(<br \/>|\n)*/g, "<h$1>")  //removes space before th
             .replace(/^[\s]+/g, "")  //removes space before beginning of code
 
             //French characters
