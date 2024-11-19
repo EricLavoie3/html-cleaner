@@ -277,7 +277,7 @@ $(document).ready(function(){
             .replace(/<br \/><\/strong>/g, "</strong><br />")  //Moves <br /> tag after strong
             .replace(/<br><\/strong>/g, "</strong><br>")  //Moves <br /> tag after strong
             .replace(/(&nbsp;*)<\/p>/g, "</p>") //Remove trailing spaces at end and beginning of paragraph
-            .replace(/(&nbsp;*)<\/h(\d)>/g, "</h$1>") //Remove trailing spaces at end and beginning of paragraph
+            .replace(/(&nbsp;*)<\/h(\d)>/g, "</h$2>") //Remove trailing spaces at end and beginning of paragraph
             .replace(/<p><strong><\/strong><\/p>/g, "")  //removes non breaking space before closing p tag 
             .replace(/\s+<\/td>/g, "</td>")  //removes space before td
             .replace(/&nbsp;+<\/td>/g, "</td>")  //removes space before td
@@ -365,7 +365,7 @@ $(document).ready(function(){
                 .concat("\n</dl>\n</aside>")
                 .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Footnotes</h2>\n\t<dl><p>')//more than one space   
                 .replace(/_ftn(\d)*">(<sup>)*(\[\d*\])(<\/sup>)*/g, '_ftn$1">$3')//Remove SUP
-                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Return to footnote </span>$1<span class="wb-inv"> referrer</span></a></p>\n\t\t</dd>')//more than one space
+                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dt>Footnote $1</dt>\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Return to footnote </span>$1<span class="wb-inv"> referrer</span></a></p>\n\t\t</dd>')//more than one space
                 .replace(/<p> /g, '<p>')//more than one space
                 .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//     
             
@@ -391,7 +391,7 @@ $(document).ready(function(){
                 .concat("\n</dl>\n</aside>")
                 .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Notes de bas de page</h2>\n\t<dl><p>')//more than one space   
                 .replace(/_ftn(\d)*">(<sup>)*(\[\d*\])(<\/sup>)*/g, '_ftn$1">$3')//Remove SUP
-                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Retour à la référence de la note de bas de page </span>$1</a></p>\n\t\t</dd>')//more than one space
+                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dt>Footnote $1</dt>\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Retour à la référence de la note de bas de page </span>$1</a></p>\n\t\t</dd>')//more than one space
                 .replace(/<p> /g, '<p>')//more than one space
                 .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//     
             
