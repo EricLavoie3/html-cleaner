@@ -250,16 +250,16 @@ $(document).ready(function(){
             .replace(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre) 20(\d{2})/g,"$1 20$2") //FR
 
         //Table of contents
-            .replace(/<p><strong>Table of contents<\/strong><\/p>/g, "<h2>Table of contents</h2>")//
-            .replace(/<p><strong>Table des matières<\/strong><\/p>/g, "<h2>Table des matières</h2>")//
-            .replace(/<h3>Table of contents<\/h3>/g, "<h2>Table of contents</h2>")//
-            .replace(/<h3>Table des matières<\/h3>/g, "<h2>Table des matières</h2>")//
-            .replace(/<p>Table of contents<\/p>/g, "<h2>Table of contents</h2>")//
-            .replace(/<p>Table des matières<\/p>/g, "<h2>Table des matières</h2>")//
-            .replace(/<p><strong>On this page<\/strong><\/p>/g, "<h2>On this page</h2>")//
-            .replace(/<p><strong>Sur cette page<\/strong><\/p>/g, "<h2>Sur cette page</h2>")//
-            .replace(/<h3>On this page<\/h3>/g, "<h2>On this page</h2>")//
-            .replace(/<h3>Sur cette page<\/h3>/g, "<h2>Sur cette page</h2>")//
+            .replace(/<p><strong>Table of contents<\/strong><\/p>/gi, "<h2>Table of contents</h2>")//
+            .replace(/<p><strong>Table des matières<\/strong><\/p>/gi, "<h2>Table des matières</h2>")//
+            .replace(/<h3>Table of contents<\/h3>/gi, "<h2>Table of contents</h2>")//
+            .replace(/<h3>Table des matières<\/h3>/gi, "<h2>Table des matières</h2>")//
+            .replace(/<p>Table of contents<\/p>/gi, "<h2>Table of contents</h2>")//
+            .replace(/<p>Table des matières<\/p>/gi, "<h2>Table des matières</h2>")//
+            .replace(/<p><strong>On this page<\/strong><\/p>/gi, "<h2>On this page</h2>")//
+            .replace(/<p><strong>Sur cette page<\/strong><\/p>/gi, "<h2>Sur cette page</h2>")//
+            .replace(/<h3>On this page<\/h3>/gi, "<h2>On this page</h2>")//
+            .replace(/<h3>Sur cette page<\/h3>/gi, "<h2>Sur cette page</h2>")//
           
             //Misc
             .replace(/(\n)(\n)<\/td>/g, "\n</td>")//
