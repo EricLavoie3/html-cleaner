@@ -283,7 +283,8 @@ $(document).ready(function(){
             .replace(/&nbsp;+<\/td>/g, "</td>")  //removes space before td
             .replace(/\s+<\/th>/g, "</th>")  //removes space before th
             .replace(/&nbsp;+<\/th>/g, "</th>")  //removes space before th
-            
+            .replace(/^[\s]+/g, "")  //removes space before beginning of code
+
             //French characters
             .replace(/&Agrave;/g, "À")
             .replace(/&agrave;/g, "à")
@@ -321,9 +322,11 @@ $(document).ready(function(){
             .replace(/<\/table>(\n*)<h/g, "</table>\n\n<h")//   
             .replace(/<\/table>(\n*)<p/g, "</table>\n\n<p")//   
             .replace(/<\/p>(\n*)<table/g, "</p>\n\n<table")//  
+            .replace(/<\/p>(\n*)<h(\d)/g, "</p>\n\n<h$2")// 
             .replace(/<\/h(\d)>(\n*)<ul/g, "</h$1>\n\n<ul")//
             .replace(/<\/h(\d)>(\n*)<ol/g, "</h$1>\n\n<ol")//
             .replace(/<\/h(\d)>(\n*)<p/g, "</h$1>\n\n<p")//
+            .replace(/<\/h(\d)>(\n*)<table/g, "</h$1>\n\n<table")//
             .replace(/<\/h(\d)>(\n*)<h(\d)/g, "</h$1>\n\n<h$3")//
             .replace(/\n <h(\d)/g, "\n<h$1")//
             .replace(/\n <div/g, "\n<div")//
@@ -343,7 +346,6 @@ $(document).ready(function(){
             .replace(/\n<td/g, "\n\t\t\t<td")//
             .replace(/\n<th/g, "\n\t\t\t<th")//
 
-
         $("textarea#textareaID").val(html);
         $("textarea#textareaID").scrollTop(0);
     };
@@ -360,16 +362,18 @@ $(document).ready(function(){
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><sup>\[\d*\]<\/sup><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>") 
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>") 
                 .replace(/ <sup id="fn/g, '<sup id="fn')//more than one space
-                .replace(/<p><a href="#_ftnref1"/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Footnotes</h2>\n\t<dl>\n<p><a href="#_ftnref1"')//more than one space   
-                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>(.*)<\/p>/g, '\t\t<dd id="fn$1">\n\t\t\t<p>$4</p>\n\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Return to footnote </span>$1<span class="wb-inv"> referrer</span></a></p>\n\t\t</dd>')//more than one space
-                .replace(/<p> /g, '<p>')//more than one space
                 .concat("\n</dl>\n</aside>")
+                .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Footnotes</h2>\n\t<dl><p>')//more than one space   
+                .replace(/_ftn(\d)*">(<sup>)*(\[\d*\])(<\/sup>)*/g, '_ftn$1">$3')//Remove SUP
+                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Return to footnote </span>$1<span class="wb-inv"> referrer</span></a></p>\n\t\t</dd>')//more than one space
+                .replace(/<p> /g, '<p>')//more than one space
                 .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//     
             
             $("textarea#textareaID").val(html);
         }else{
             alert("No footnotes found.")
         }
+     
     });
 
     // Convert footnotes to WET footnotes - French
@@ -382,21 +386,24 @@ $(document).ready(function(){
             html = html.replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><strong>\[\d*\]<\/strong><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><strong><sup>\[\d*\]<\/sup><\/strong><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><sup>\[\d*\]<\/sup><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
+                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>") 
                 .replace(/ <sup id="fn/g, '<sup id="fn')//more than one space
-                .replace(/<p><a href="#_ftnref1"/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Notes de bas de page</h2>\n\t<dl>\n<p><a href="#_ftnref1"')//more than one space   
-                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>(.*)<\/p>/g, '\t\t<dd id="fn$1">\n\t\t\t<p>$4</p>\n\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Retour à la référence de la note de bas de page </span>$1</a></p>\n\t\t</dd>')//more than one space
-                .replace(/<p> /g, '<p>')//more than one space
                 .concat("\n</dl>\n</aside>")
-                .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//         
-        
+                .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Notes de bas de page</h2>\n\t<dl><p>')//more than one space   
+                .replace(/_ftn(\d)*">(<sup>)*(\[\d*\])(<\/sup>)*/g, '_ftn$1">$3')//Remove SUP
+                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Retour à la référence de la note de bas de page </span>$1</a></p>\n\t\t</dd>')//more than one space
+                .replace(/<p> /g, '<p>')//more than one space
+                .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//     
+            
             $("textarea#textareaID").val(html);
-            }else{
+        }else{
             alert("No footnotes found.")
         }
+
     });
 
       // Convert Canada.ca links
-      $("#btn-canada-links").click(function () {
+    $("#btn-canada-links").click(function () {
         var html = $('textarea#textareaID').val()
             .replace(/<a href="https:\/\/www.canada.ca\/en\//g, '<a href="/content/canadasite/en/')
             .replace(/<a href="https:\/\/www.canada.ca\/fr\//g, '<a href="/content/canadasite/fr/')
