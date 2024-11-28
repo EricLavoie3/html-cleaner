@@ -42,6 +42,7 @@ $(document).ready(function(){
             .replace(/<b>\s*<\/b>/g,"") // remove empty bold tag	
             .replace(/<\/strong>(\s*)<strong>/g, "$1")//removes double strong $1 for only put in space if there
             .replace(/<strong>\s*<\/strong>/g,"") // remove empty strong tag	
+            .replace(/<strong>(&nbsp;)*<\/strong>/g,"&nbsp;") // remove empty strong tag
             
         //Spaces 2
             .replace(/ (\s+)/g, ' ')//more than one space
@@ -51,6 +52,8 @@ $(document).ready(function(){
             .replace(/(\s+)<br \/>/g, '<br \/>') //removes space before br tag	
             .replace(/<br>(\s+)/g, '<br>') //removes space after br tag	
             .replace(/<br \/>(\s+)/g, '<br \/>')//removes space after br tag	
+            .replace(/<a name="([^>]*)>([^>]*)<\/a>/g, "$2")
+            .replace(/<a>([^>]*)<\/a>/g, "$1")
             .replace(/(\s+)<\/a>/g, '</a>')//removes space before closing a tag		
             .replace(/"(\s+)>/g, '">')//removes space between quotes and end of tag		
             .replace(/(&nbsp;)+/g, "&nbsp;")  //removes non breaking space before space		
@@ -91,11 +94,14 @@ $(document).ready(function(){
             .replace(/ border="(\d+)"/g, '') //tables
             .replace(/ cellspacing="(\d+)"/g, '') //tables
             .replace(/ cellpadding="(\d+)"/g, '') //tables
+            .replace(/<table width="100%">/g, '<table class="table table-bordered">') //tables
             .replace(/<table>/g, '<table class="table table-bordered">') //tables
             .replace(/ border="(\d+)" cellspacing="(\d+)" cellpadding="(\d+)"/g, ' class="table table-bordered"') //tables
             .replace(/ width="(\d+)\%*"/g, "") //tables
             .replace(/ valign="(\w+)"/g, "") //tables
             .replace(/ nowrap/g, "") //tables
+            .replace(/<table((.|\n)*?)<tr>/g, "<table$1<tr class=\"active\">") //tables
+            
 
         //Remove height tag
             .replace(/ height="(\d+)"/g, "") //remove height
@@ -212,10 +218,10 @@ $(document).ready(function(){
         //    .replace(/\n<li>/g, "\n\t<li>") //add tabs
 
         //Remove P from TD, TH and LI
-            .replace(/<td>(\s*)<p>(.*)<\/p>(\s*)<\/td>/g, "<td>$2</td>")//beginning
-            .replace(/<th>(\s*)<p>(.*)<\/p>(\s*)<\/th>/g, "<th>$2</th>")//beginning
-            .replace(/<li>(\s*)<p>(.*)<\/p>(\s*)<\/li>/g, "<li>$2</li>")//beginning
-            .replace(/<td>(\s*)<\/td>/g, "<td></td>")//beginning
+            .replace(/<td>(\s*)<p>(.*)<\/p>(\s*)<\/td>/g, "<td>$2</td>")
+            .replace(/<th>(\s*)<p>(.*)<\/p>(\s*)<\/th>/g, "<th>$2</th>")
+            .replace(/<li>(\s*)<p>(.*)<\/p>(\s*)<\/li>/g, "<li>$2</li>")
+            .replace(/<td>(\s*)<\/td>/g, "<td></td>")
 
         //Quotes 
             .replace(/ »/g, '&nbsp;»')
@@ -223,9 +229,10 @@ $(document).ready(function(){
         
         //Misc
         //    .replace(/<h(\d)><a name="(.*)"><\/a>/g, '<h$1 id="">');
-            .replace(/<a name="([^>]*)>([^>]*)<\/a>/g, "$2")
+            
             .replace(/<h\d id="">&nbsp;*<\/h\d>\s*/g, '')
             .replace(/<h(\d)><strong>\s*/g, '<h$1>')
+            .replace(/<h(\d)>\s*<strong>/g, '<h$1>')
             .replace(/<h(\d) id=".*"><strong>\s*/g, '<h$1>')
             .replace(/<\/strong><\/h(\d)>\s*/g, '</h$1>')
             .replace(/<a href="#_Toc(\d+)">/g, '<a href="#toc">')
@@ -335,6 +342,7 @@ $(document).ready(function(){
             .replace(/<br \/>/g, "<br />\n")//
             .replace(/<br>\n*/g, "<br>")//
             .replace(/<br>>/g, "<br>\n")//
+            .replace(/<br>>/g, "<br>\n")//
 
             //Tabs
             .replace(/\n<li/g, "\n\t<li")//
@@ -345,7 +353,9 @@ $(document).ready(function(){
             .replace(/\n<tr/g, "\n\t\t<tr")//
             .replace(/\n<\/tr/g, "\n\t\t</tr")//
             .replace(/\n<td/g, "\n\t\t\t<td")//
-            .replace(/\n<th/g, "\n\t\t\t<th")//
+            .replace(/<br><br><\/p>/g, "</p>")//
+            .replace(/&nbsp;<\/li>/g, "</li>")//
+            .replace(/(<br>)*<\/li>/g, "</li>")//
 
         $("textarea#textareaID").val(html);
         $("textarea#textareaID").scrollTop(0);
@@ -368,7 +378,12 @@ $(document).ready(function(){
                 .replace(/_ftn(\d)*">(<sup>)*(\[\d*\])(<\/sup>)*/g, '_ftn$1">$3')//Remove SUP
                 .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dt>Footnote $1</dt>\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Return to footnote </span>$1<span class="wb-inv"> referrer</span></a></p>\n\t\t</dd>')//more than one space
                 .replace(/<p> /g, '<p>')//more than one space
-                .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//     
+                .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")
+                .replace(/<div>\n(\s)*<hr>\n<div id="ftn1">/g, "")
+                .replace(/<\/div>\n<div id="ftn(\d)*">/g, "")
+                .replace(/<\/div>\n<\/div>\s*(?=<p class="fn-rtn">)/g, "")
+                .replace(/<p>&nbsp;/g, "<p>")
+
             
             $("textarea#textareaID").val(html);
         }else{
@@ -387,14 +402,18 @@ $(document).ready(function(){
             html = html.replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><strong>\[\d*\]<\/strong><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><strong><sup>\[\d*\]<\/sup><\/strong><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><sup>\[\d*\]<\/sup><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
-                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>") 
+                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
                 .replace(/ <sup id="fn/g, '<sup id="fn')//more than one space
                 .concat("\n</dl>\n</aside>")
                 .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Notes de bas de page</h2>\n\t<dl><p>')//more than one space   
                 .replace(/_ftn(\d)*">(<sup>)*(\[\d*\])(<\/sup>)*/g, '_ftn$1">$3')//Remove SUP
-                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dt>Footnote $1</dt>\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Retour à la référence de la note de bas de page </span>$1</a></p>\n\t\t</dd>')//more than one space
+                .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dt>Note de bas de page $1</dt>\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Retour à la référence de la note de bas de page </span>$1</a></p>\n\t\t</dd>')//more than one space
                 .replace(/<p> /g, '<p>')//more than one space
-                .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//     
+                .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//   
+                .replace(/<div>\n(\s)*<hr>\n<div id="ftn1">/g, "")
+                .replace(/<\/div>\n<div id="ftn(\d)*">/g, "")
+                .replace(/<\/div>\n<\/div>\s*(?=<p class="fn-rtn">)/g, "")
+                .replace(/<p>&nbsp;/g, "<p>")  
             
             $("textarea#textareaID").val(html);
         }else{
