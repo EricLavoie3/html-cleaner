@@ -218,10 +218,11 @@ $(document).ready(function(){
         //    .replace(/\n<li>/g, "\n\t<li>") //add tabs
 
         //Remove P from TD, TH and LI
-            .replace(/<td>(\s*)<p>(.*)<\/p>(\s*)<\/td>/g, "<td>$2</td>")
-            .replace(/<th>(\s*)<p>(.*)<\/p>(\s*)<\/th>/g, "<th>$2</th>")
-            .replace(/<li>(\s*)<p>(.*)<\/p>(\s*)<\/li>/g, "<li>$2</li>")
-            .replace(/<td>(\s*)<\/td>/g, "<td></td>")
+            //.replace(/<td>(\s*)<p>(.*)<\/p>(\s*)<\/td>/g, "<td>$2</td>")
+            //.replace(/<th>(\s*)<p>(.*)<\/p>(\s*)<\/th>/g, "<th>$2</th>")
+           // .replace(/<li>(\s*)<p>(.*)<\/p>(\s*)<\/li>/g, "<li>$2</li>")
+           //.replace(/(<(li|dt|dd|th|td)\b[^>]*>)\s*<p>(.*)<\/p>\s*(<\/\2>)/g, '$1$3$4')
+           .replace(/<td>(\s*)<\/td>/g, "<td></td>")
 
         //Quotes 
             .replace(/ »/g, '&nbsp;»')
@@ -245,6 +246,7 @@ $(document).ready(function(){
             .replace(/<\/p>/g,"</p>\n")
             .replace(/<\/p>\n<\/li>/g,"</p></li>")
             .replace(/<\/p>\n<\/div>/g,"</p></div>")
+            .replace(/ /g," ")
 
         //Dates
         //replace space between day and month with nonbreaking space	
@@ -353,9 +355,12 @@ $(document).ready(function(){
             .replace(/\n<tr/g, "\n\t\t<tr")//
             .replace(/\n<\/tr/g, "\n\t\t</tr")//
             .replace(/\n<td/g, "\n\t\t\t<td")//
+            .replace(/\n<th/g, "\n\t\t\t<th")//
             .replace(/<br><br><\/p>/g, "</p>")//
             .replace(/&nbsp;<\/li>/g, "</li>")//
-            .replace(/(<br>)*<\/li>/g, "</li>")//
+            .replace(/(<br>)*<\/li>/g, "</li>");
+
+            
 
         $("textarea#textareaID").val(html);
         $("textarea#textareaID").scrollTop(0);
