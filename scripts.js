@@ -360,6 +360,19 @@ $(document).ready(function(){
             .replace(/&nbsp;<\/li>/g, "</li>")//
             .replace(/(<br>)*<\/li>/g, "</li>");
 
+            // Remove paragraph tag inside list and table elements
+            let div = $('<div></div>');
+            div.html(html);
+
+            let elements = div.find('li, th, td, dt, dd');
+            elements.each(function () {
+                let paragraphs = $(this).find('p');
+                if (paragraphs.length === 1) {
+                    let content = paragraphs[0].innerHTML;
+                    $(this).html(content);
+                }
+            });
+            html = div.html();
             
 
         $("textarea#textareaID").val(html);
