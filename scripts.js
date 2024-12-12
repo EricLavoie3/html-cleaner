@@ -358,9 +358,12 @@ $(document).ready(function(){
             .replace(/\n<th/g, "\n\t\t\t<th")//
             .replace(/<br><br><\/p>/g, "</p>")//
             .replace(/&nbsp;<\/li>/g, "</li>")//
-            .replace(/(<br>)*<\/li>/g, "</li>");
+            .replace(/(<br>)*<\/li>/g, "</li>")//
 
-            // Remove paragraph tag inside list and table elements
+            // UTM codes
+            .replace(/\?utm[^"]*/g, '') // removes UTM codes from links
+
+            // removes paragraph tag inside list and table elements
             let div = $('<div></div>');
             div.html(html);
 
