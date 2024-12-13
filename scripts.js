@@ -484,6 +484,17 @@ $(document).ready(function(){
             }
         }
 
+        if (html.indexOf("<table") >= 0 && html.indexOf("</thead>") <= 0){
+            if (errors == 0){
+                $("#errors-list").show();
+                $("#errors-list").append("<p>Please review the following:</p><ul>");
+                $("#errors-list").append("<li>This code contains <b>&lt;table&gt;</b> without <b>&lt;thead&gt;</b>. The <b>&lt;thead&gt;</b> tag may be used to define the header of the HTML table.</li>");
+                errors = 1
+            }else{
+                $("#errors-list").append("<li>This code contains <b>&lt;table&gt;</b> without <b>&lt;thead&gt;</b>. The <b>&lt;thead&gt;</b> tag may be used to define the header of the HTML table.</li>");
+            }
+        }
+
         if (language == "eng"){
             if ((html.indexOf("/fr/") >= 0 || html.indexOf("-fra.") >= 0)){
                 if (errors == 0){
