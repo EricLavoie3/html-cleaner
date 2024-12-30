@@ -21,7 +21,7 @@ $(document).ready(function(){
         var html = $('textarea#textareaID').val()
 
             //Spaces
-            .replace(/\s+(;|!|,|\)|\]|})/g, "$1")//removes space before certain characters	
+            .replace(/\s+(;|!|,|\)|\]|})/g, "$1")//removes space before certain characters
             .replace(/(\(|\[|\{)\s+/g, "$1")//removes space after certain characters
             .replace(/(&nbsp;)+\./g, ".")//removes non breaking space before period
             .replace(/(&nbsp;)*<br>/g,"<br>") //removes non breaking space before break
@@ -32,39 +32,39 @@ $(document).ready(function(){
 
         //Time stamps
             .replace(/(\d*)\sh\s(\d*)/g, "$1&nbsp;h&nbsp;$2") //nbsp between hour h minutes
-        
+
         //Italics
             //.replace(/em>/g, "cite>") //replace em with cite
             .replace(/<\/i>(\s*)<i>/g, "$1")//removes double italic
-        
+
         //Bold
             .replace(/<\/b>(\s*)<b>/g, "$1")//removes double bold $1 for only put in space if there
-            .replace(/<b>\s*<\/b>/g,"") // remove empty bold tag	
+            .replace(/<b>\s*<\/b>/g,"") // remove empty bold tag
             .replace(/<\/strong>(\s*)<strong>/g, "$1")//removes double strong $1 for only put in space if there
-            .replace(/<strong>\s*<\/strong>/g,"") // remove empty strong tag	
+            .replace(/<strong>\s*<\/strong>/g,"") // remove empty strong tag
             .replace(/<strong>(&nbsp;)*<\/strong>/g,"&nbsp;") // remove empty strong tag
-            
+
         //Spaces 2
             .replace(/ (\s+)/g, ' ')//more than one space
             .replace(/(<br>)*\s*<br>\s*<\/b>/g, "</b>$1<br>") // move br after </b>
             .replace(/(<br \/>)*\s*<br \/>\s*<\/b>/g, "</b>$1<br \/>") // move br after </b>
-            .replace(/(\s+)<br>/g, '<br>')//removes space before br tag	
-            .replace(/(\s+)<br \/>/g, '<br \/>') //removes space before br tag	
-            .replace(/<br>(\s+)/g, '<br>') //removes space after br tag	
-            .replace(/<br \/>(\s+)/g, '<br \/>')//removes space after br tag	
+            .replace(/(\s+)<br>/g, '<br>')//removes space before br tag
+            .replace(/(\s+)<br \/>/g, '<br \/>') //removes space before br tag
+            .replace(/<br>(\s+)/g, '<br>') //removes space after br tag
+            .replace(/<br \/>(\s+)/g, '<br \/>')//removes space after br tag
             .replace(/<a name="([^>]*)>([^>]*)<\/a>/g, "$2")
             .replace(/<a>([^>]*)<\/a>/g, "$1")
-            .replace(/(\s+)<\/a>/g, '</a>')//removes space before closing a tag		
-            .replace(/"(\s+)>/g, '">')//removes space between quotes and end of tag		
-            .replace(/(&nbsp;)+/g, "&nbsp;")  //removes non breaking space before space		
-            .replace(/&nbsp;<\/p/g, "</p")  //removes non breaking space before closing p tag 
-        
+            .replace(/(\s+)<\/a>/g, '</a>')//removes space before closing a tag
+            .replace(/"(\s+)>/g, '">')//removes space between quotes and end of tag
+            .replace(/(&nbsp;)+/g, "&nbsp;")  //removes non breaking space before space
+            .replace(/&nbsp;<\/p/g, "</p")  //removes non breaking space before closing p tag
+
         //Colons
             .replace(/<\/b>&nbsp;:/g, "&nbsp;:</b>") //moves colon to before close of b tag
-            .replace(/<\/b>:/g, ":</b>") //moves colon to before close of b tag	
+            .replace(/<\/b>:/g, ":</b>") //moves colon to before close of b tag
             .replace(/<\/strong>&nbsp;:/g, "&nbsp;:</strong>") //moves colon to before close of b tag
-            .replace(/<\/strong>:/g, ":</strong>") //moves colon to before close of strong tag	
-        
+            .replace(/<\/strong>:/g, ":</strong>") //moves colon to before close of strong tag
+
         //Spaces 3
             .replace(/\s+<\/b>/g, "</b> ") //moves space to after close of b tag
             .replace(/<b>\s+/g, " <b>") //moves space to before b tag
@@ -73,23 +73,23 @@ $(document).ready(function(){
             .replace(/\s+<\/strong>/g, "</strong> ") //moves space to after closing b tag
             .replace(/\s+<\/p/g, "</p")  //removes space before closing p tag
             .replace(/&nbsp;+<\/strong>/g, "</strong>&nbsp;") //moves space to after closing b tag
-            .replace(/&nbsp;<\/li/g, "</li")  //removes non breaking space before closing li tag 
+            .replace(/&nbsp;<\/li/g, "</li")  //removes non breaking space before closing li tag
             .replace(/\s+<\/li/g, "</li")  //removes breaking space before closing li tag
             .replace(/\s+<\/i>/g, "</i> ") //moves space to after close of i tag
-            .replace(/<i>\s+/g, " <i>") //moves space to before i tag		
+            .replace(/<i>\s+/g, " <i>") //moves space to before i tag
             .replace(/\s+<\/cite>/g, "</cite> ") //moves space to after close of cite tag
-            .replace(/<cite>\s+/g, " <cite>") //moves space to before cite tag	
+            .replace(/<cite>\s+/g, " <cite>") //moves space to before cite tag
             .replace(/\s+<\/em>/g, "</em> ") //moves space to after close of em tag
-            .replace(/<em>\s+/g, " <em>") //moves space to before em tag	
+            .replace(/<em>\s+/g, " <em>") //moves space to before em tag
             .replace(/&nbsp; /g, " ")  //removes non breaking space before space
             .replace(/ &nbsp;/g, " ")  //removes non breaking space after space
-            .replace(/&nbsp;\?/g, "?")  //removes non breaking space before ?		
+            .replace(/&nbsp;\?/g, "?")  //removes non breaking space before ?
             .replace(/ \?/g, "?")  //removes space before ?
             .replace(/\s+<\/td>/g, "</td>")  //removes space before td
             .replace(/&nbsp;+<\/td>/g, "</td>")  //removes space before td
             .replace(/\s+<\/th>/g, "</th>")  //removes space before th
             .replace(/&nbsp;+<\/th>/g, "</th>")  //removes space before th
-        
+
         //Tables
             .replace(/ border="(\d+)"/g, '') //tables
             .replace(/ cellspacing="(\d+)"/g, '') //tables
@@ -101,25 +101,25 @@ $(document).ready(function(){
             .replace(/ valign="(\w+)"/g, "") //tables
             .replace(/ nowrap/g, "") //tables
             .replace(/<table((.|\n)*?)<tr>/g, "<table$1<tr class=\"active\">") //tables
-            
+
 
         //Remove height tag
             .replace(/ height="(\d+)"/g, "") //remove height
             .replace(/ size="(\d+)"/g, "") //remove height
-        
+
         //Style
             .replace(/ style="[^"]*"/g, "") //remove all style attributes
-        
+
         //Span
             .replace(/<span>([^<]*)<\/span>/g,"$1")
-        
+
         //Spaces 4
             .replace(/(\s*)<\/p>/g, "</p>") //Remove trailing spaces at end and beginning of paragraph
             .replace(/<p>(\s*)/g, "<p>")//Remove trailing spaces at end and beginning of paragraph
             .replace(/(\s+)\./g, '.')  //removes space before period
             .replace(/<br>(\s*)<\/p>/g,"</p>") //remove break before p
             .replace(/<br \/>(\s*)<\/p>/g,"</p>") //remove break before p
-        
+
         //Style 2
             .replace(/ align="center"/g, "")  //removes align
             .replace(/ align="left"/g, "")  //removes align
@@ -130,7 +130,7 @@ $(document).ready(function(){
             .replace(/<\/b>(\s*)<\/b>/g, "</b>$1")//removes double bold
             .replace(/<strong><strong>/g, "<strong>")//remove double bold
             .replace(/<\/strong>(\s*)<\/strong>/g, "</strong>$1")//removes double bold
-            
+
         //underline links
             .replace(/<u><a(\s*\S*)>/g, "<a$1>") //<u><a> start
             .replace(/<\/a><\/u>/g, "<\/a>") //<u><a> end
@@ -145,10 +145,10 @@ $(document).ready(function(){
             .replace(/<strong><u>/g, "<strong>") //<b><u> start
             .replace(/<\/u>(:)?<\/strong>/g, "$1</strong>")//<b><u> end
             .replace(/<\/u>(\s*)<u>/g, "$1")//removes double underline
-    
+
         ////*TITLES*////
             .replace(/ title="[^"]*"/g, "")  //removes title attribute
-        
+
         ////*REMOVE EMPTY TAGS*////
             .replace(/<i>\.<\/i>/g, ".")  //removes empty i
             .replace(/<cite>\.<\/cite>/g, ".")  //removes empty cite
@@ -157,9 +157,9 @@ $(document).ready(function(){
             .replace(/<em><\/em>/g, "")  //removes empty em
             .replace(/<em>&nbsp;<\/em>/g, "&nbsp;")  //removes empty em
             .replace(/<br clear="all">\s*/gi, "")  //removes br clear all
-            .replace(/<p><br>\s*/g, "<p>")  //removes br 
-            .replace(/<p><br \/>\s*/g, "<p>")  //removes br 
-            .replace(/<p><strong><br \/>\s*/g, "<p><strong>")  //removes br 
+            .replace(/<p><br>\s*/g, "<p>")  //removes br
+            .replace(/<p><br \/>\s*/g, "<p>")  //removes br
+            .replace(/<p><strong><br \/>\s*/g, "<p><strong>")  //removes br
             .replace(/<div>\s*<\/div>\s*/g, "")  //removes empty divs
             .replace(/<b>\s*<\/b>/g, " ")//removes empty bold
             .replace(/<b>&nbsp;*<\/b>/g, " ")//removes empty bold
@@ -171,7 +171,7 @@ $(document).ready(function(){
             .replace(/<u>\s*<\/u>/g, "")//removes empty underline )
             .replace(/<p>(\s*)<\/p>/g, "")//removes empty paragraphs
             .replace(/<p><em>&nbsp;<\/em><\/p>/g, "")//removes empty paragraphs
-            
+
             .replace(/<p>&nbsp;+/g, "<p>")//removes empty paragraphs
             .replace(/<p>&nbsp;<\/p>/g, "")
             .replace(/<h\d>(&nbsp;*|\s*)<\/h\d>\s*/g, "")//empty headings
@@ -179,16 +179,16 @@ $(document).ready(function(){
 
         // French colons
             .replace(/(\s+):/g, '&nbsp;:')//adds non breaking space before colon
-        
+
         //Breaks
             .replace(/<br><\/b><\/p>/g, "</b></p>") //remove br before end of p tag with a bold
             .replace(/<br><\/b><\/p>/g, "</b></p>") //put br after bold tag
-            .replace(/<p><br>/g,"<p>")//delete br after p	
+            .replace(/<p><br>/g,"<p>")//delete br after p
             .replace(/<br><\/p>/g, "</p>") // delete br before </p>
             .replace(/<\/p>\s*<br>/g, "</p>") // remove br after closing </p>
             .replace(/<br \/><\/b><\/p>/g, "</b></p>") //remove br before end of p tag with a bold
             .replace(/<br \/><\/b><\/p>/g, "</b></p>") //put br after bold tag
-            .replace(/<p><br \/>/g,"<p>")//delete br after p	
+            .replace(/<p><br \/>/g,"<p>")//delete br after p
             .replace(/<br \/><\/p>/g, "</p>") // delete br before </p>
             .replace(/<\/p>\s*<br \/>/g, "</p>") // remove br after closing </p>
 
@@ -198,7 +198,7 @@ $(document).ready(function(){
             .replace(/ type="disc"/g, "") //lists
             .replace(/ type="square"/g, "") //lists
             .replace(/ type="1"/g, "") //lists
-        //    .replace(/ start="(\d)"/g, '') //lists	
+        //    .replace(/ start="(\d)"/g, '') //lists
             .replace(/(\s*)<ul>(\s*)<ul>/g, "<ul>")// remove double lists
             .replace(/(\s*)<ul>(\s*)<ul>/g, "<ul>")// remove double lists
         //need to run above line twice do not know why)
@@ -224,13 +224,13 @@ $(document).ready(function(){
            //.replace(/(<(li|dt|dd|th|td)\b[^>]*>)\s*<p>(.*)<\/p>\s*(<\/\2>)/g, '$1$3$4')
            .replace(/<td>(\s*)<\/td>/g, "<td></td>")
 
-        //Quotes 
+        //Quotes
             .replace(/ »/g, '&nbsp;»')
             .replace(/« /g, '«&nbsp;')
-        
+
         //Misc
         //    .replace(/<h(\d)><a name="(.*)"><\/a>/g, '<h$1 id="">');
-            
+
             .replace(/<h\d id="">&nbsp;*<\/h\d>\s*/g, '')
             .replace(/<h(\d)><strong>\s*/g, '<h$1>')
             .replace(/<h(\d)>\s*<strong>/g, '<h$1>')
@@ -249,12 +249,12 @@ $(document).ready(function(){
             .replace(/ /g," ")
 
         //Dates
-        //replace space between day and month with nonbreaking space	
+        //replace space between day and month with nonbreaking space
             .replace(/(January|February|March|April|May|June|July|August|September|October|November|December) (\d+)/g,"$1&nbsp;$2") //EN
             .replace(/(\d+) (janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/g,"$1&nbsp;$2") //FR
             .replace(/(1er) (janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/g, "1er&nbsp;$2") //first of month
-        
-        //replace space between month and year with nonbreakingspace	
+
+        //replace space between month and year with nonbreakingspace
             .replace(/(January|February|March|April|May|June|July|August|September October|November|December) 20(\d{2})/g,"$1&nbsp;20$2") //EN
             .replace(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre) 20(\d{2})/g,"$1 20$2") //FR
 
@@ -269,7 +269,7 @@ $(document).ready(function(){
             .replace(/<p><strong>Sur cette page<\/strong><\/p>/gi, "<h2>Sur cette page</h2>")//
             .replace(/<h3>On this page<\/h3>/gi, "<h2>On this page</h2>")//
             .replace(/<h3>Sur cette page<\/h3>/gi, "<h2>Sur cette page</h2>")//
-          
+
             //Misc
             .replace(/(\n)(\n)<\/td>/g, "\n</td>")//
             .replace(/<p><\/p>/g, "")
@@ -281,13 +281,13 @@ $(document).ready(function(){
             .replace(/( +) /g, ' ')//more than one space
             .replace(/<br>(&nbsp;)*/g,"<br>") //removes non breaking space before break
             .replace(/<br \/>(&nbsp;)*/g,"<br />") //removes non breaking space before break
-            .replace(/ <\/strong><\/p/g, "</strong></p")  //removes non breaking space before closing p tag 
-            .replace(/&nbsp;<\/strong><\/p/g, "</strong></p")  //removes non breaking space before closing p tag 
+            .replace(/ <\/strong><\/p/g, "</strong></p")  //removes non breaking space before closing p tag
+            .replace(/&nbsp;<\/strong><\/p/g, "</strong></p")  //removes non breaking space before closing p tag
             .replace(/<br \/><\/strong>/g, "</strong><br />")  //Moves <br /> tag after strong
             .replace(/<br><\/strong>/g, "</strong><br>")  //Moves <br /> tag after strong
             .replace(/(&nbsp;*)<\/p>/g, "</p>") //Remove trailing spaces at end and beginning of paragraph
             .replace(/(&nbsp;*)<\/h(\d)>/g, "</h$2>") //Remove trailing spaces at end and beginning of paragraph
-            .replace(/<p><strong><\/strong><\/p>/g, "")  //removes non breaking space before closing p tag 
+            .replace(/<p><strong><\/strong><\/p>/g, "")  //removes non breaking space before closing p tag
             .replace(/\s+<\/td>/g, "</td>")  //removes space before td
             .replace(/&nbsp;+<\/td>/g, "</td>")  //removes space before td
             .replace(/\s+<\/th>/g, "</th>")  //removes space before th
@@ -329,10 +329,10 @@ $(document).ready(function(){
             .replace(/<\/p>(\n*)<p/g, "</p>\n\n<p")//
             .replace(/<\/ul>(\n*)<h/g, "</ul>\n\n<h")//
             .replace(/<\/ol>(\n*)<p/g, "</ol>\n\n<p")//
-            .replace(/<\/table>(\n*)<h/g, "</table>\n\n<h")//   
-            .replace(/<\/table>(\n*)<p/g, "</table>\n\n<p")//   
-            .replace(/<\/p>(\n*)<table/g, "</p>\n\n<table")//  
-            .replace(/<\/p>(\n*)<h(\d)/g, "</p>\n\n<h$2")// 
+            .replace(/<\/table>(\n*)<h/g, "</table>\n\n<h")//
+            .replace(/<\/table>(\n*)<p/g, "</table>\n\n<p")//
+            .replace(/<\/p>(\n*)<table/g, "</p>\n\n<table")//
+            .replace(/<\/p>(\n*)<h(\d)/g, "</p>\n\n<h$2")//
             .replace(/<\/h(\d)>(\n*)<ul/g, "</h$1>\n\n<ul")//
             .replace(/<\/h(\d)>(\n*)<ol/g, "</h$1>\n\n<ol")//
             .replace(/<\/h(\d)>(\n*)<p/g, "</h$1>\n\n<p")//
@@ -358,9 +358,9 @@ $(document).ready(function(){
             .replace(/\n<th/g, "\n\t\t\t<th")//
             .replace(/<br><br><\/p>/g, "</p>")//
             .replace(/&nbsp;<\/li>/g, "</li>")//
-            .replace(/(<br>)*<\/li>/g, "</li>");
+            .replace(/(<br>)*<\/li>/g, "</li>")//
 
-            // Remove paragraph tag inside list and table elements
+            // removes paragraph tag inside list and table elements
             let div = $('<div></div>');
             div.html(html);
 
@@ -373,7 +373,7 @@ $(document).ready(function(){
                 }
             });
             html = div.html();
-            
+
 
         $("textarea#textareaID").val(html);
         $("textarea#textareaID").scrollTop(0);
@@ -386,13 +386,13 @@ $(document).ready(function(){
         var count = (html.match(/ftn/g) || []).length;
 
         if (count > 0){
-            html = html.replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><strong>\[\d*\]<\/strong><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>") 
-                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><strong><sup>\[\d*\]<\/sup><\/strong><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>") 
-                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><sup>\[\d*\]<\/sup><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>") 
-                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>") 
+            html = html.replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><strong>\[\d*\]<\/strong><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>")
+                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><strong><sup>\[\d*\]<\/sup><\/strong><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>")
+                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><sup>\[\d*\]<\/sup><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>")
+                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>")
                 .replace(/ <sup id="fn/g, '<sup id="fn')//more than one space
                 .concat("\n</dl>\n</aside>")
-                .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Footnotes</h2>\n\t<dl><p>')//more than one space   
+                .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Footnotes</h2>\n\t<dl><p>')//more than one space
                 .replace(/_ftn(\d)*">(<sup>)*(\[\d*\])(<\/sup>)*/g, '_ftn$1">$3')//Remove SUP
                 .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dt>Footnote $1</dt>\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Return to footnote </span>$1<span class="wb-inv"> referrer</span></a></p>\n\t\t</dd>')//more than one space
                 .replace(/<p> /g, '<p>')//more than one space
@@ -402,12 +402,12 @@ $(document).ready(function(){
                 .replace(/<\/div>\n<\/div>\s*(?=<p class="fn-rtn">)/g, "")
                 .replace(/<p>&nbsp;/g, "<p>")
 
-            
+
             $("textarea#textareaID").val(html);
         }else{
             alert("No footnotes found.")
         }
-     
+
     });
 
     // Convert footnotes to WET footnotes - French
@@ -417,22 +417,22 @@ $(document).ready(function(){
         var count = (html.match(/ftn/g) || []).length;
 
         if (count > 0){
-            html = html.replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><strong>\[\d*\]<\/strong><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
-                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><strong><sup>\[\d*\]<\/sup><\/strong><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
-                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><sup>\[\d*\]<\/sup><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
-                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>") 
+            html = html.replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><strong>\[\d*\]<\/strong><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>")
+                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><strong><sup>\[\d*\]<\/sup><\/strong><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>")
+                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><sup>\[\d*\]<\/sup><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>")
+                .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Note de bas de page </span>$1</a></sup>")
                 .replace(/ <sup id="fn/g, '<sup id="fn')//more than one space
                 .concat("\n</dl>\n</aside>")
-                .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Notes de bas de page</h2>\n\t<dl><p>')//more than one space   
+                .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Notes de bas de page</h2>\n\t<dl><p>')//more than one space
                 .replace(/_ftn(\d)*">(<sup>)*(\[\d*\])(<\/sup>)*/g, '_ftn$1">$3')//Remove SUP
                 .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dt>Note de bas de page $1</dt>\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">Retour à la référence de la note de bas de page </span>$1</a></p>\n\t\t</dd>')//more than one space
                 .replace(/<p> /g, '<p>')//more than one space
-                .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//   
+                .replace(/(\n*)<\/dl>\n<\/aside>/g, "\n\t</dl>\n</aside>")//
                 .replace(/<div>\n(\s)*<hr>\n<div id="ftn1">/g, "")
                 .replace(/<\/div>\n<div id="ftn(\d)*">/g, "")
                 .replace(/<\/div>\n<\/div>\s*(?=<p class="fn-rtn">)/g, "")
-                .replace(/<p>&nbsp;/g, "<p>")  
-            
+                .replace(/<p>&nbsp;/g, "<p>")
+
             $("textarea#textareaID").val(html);
         }else{
             alert("No footnotes found.")
@@ -446,7 +446,14 @@ $(document).ready(function(){
             .replace(/<a href="https:\/\/www.canada.ca\/en\//g, '<a href="/content/canadasite/en/')
             .replace(/<a href="https:\/\/www.canada.ca\/fr\//g, '<a href="/content/canadasite/fr/')
         $("textarea#textareaID").val(html);
-   
+
+    });
+
+        // Remove UTM codes
+    $("#btn-remove-utm-codes").click(function () {
+        var html = $('textarea#textareaID').val()
+            .replace(/\?utm[^"]*/g, '')
+        $("textarea#textareaID").val(html);
     });
 
         // Convert EM to CITE
@@ -466,7 +473,7 @@ $(document).ready(function(){
             if (errors == 0){
                 $("#errors-list").show();
                 $("#errors-list").append("<p>Please review the following:</p><ul>");
-                $("#errors-list").append("<li>There are <b>&lt;em&gt;</b> tags in the code. If it's a policy document, act, or title of a document, use <b>&lt;cite&gt;</b>. If it's for emphasis, use <b>&lt;strong&gt;</b>.</li>");  
+                $("#errors-list").append("<li>There are <b>&lt;em&gt;</b> tags in the code. If it's a policy document, act, or title of a document, use <b>&lt;cite&gt;</b>. If it's for emphasis, use <b>&lt;strong&gt;</b>.</li>");
                 errors = 1
             }else{
                 $("#errors-list").append("<li>There are <b>&lt;em&gt;</b> tags in the code. If it's a policy document, act, or title of a document, use <b>&lt;cite&gt;</b>. If it's for emphasis, use <b>&lt;strong&gt;</b>.</li>");
@@ -477,10 +484,10 @@ $(document).ready(function(){
             if (errors == 0){
                 $("#errors-list").show();
                 $("#errors-list").append("<p>Please review the following:</p><ul>");
-                $("#errors-list").append("<li>There are <b>&lt;u&gt;</b> tags in the code. If it's for emphasis, use <b>&lt;strong&gt;</b></li>"); 
-                errors = 1 
+                $("#errors-list").append("<li>There are <b>&lt;u&gt;</b> tags in the code. If it's for emphasis, use <b>&lt;strong&gt;</b></li>");
+                errors = 1
             }else{
-                $("#errors-list").append("<li>There are <b>&lt;u&gt;</b> tags in the code. If it's for emphasis, use <b>&lt;strong&gt;</b></li>");  
+                $("#errors-list").append("<li>There are <b>&lt;u&gt;</b> tags in the code. If it's for emphasis, use <b>&lt;strong&gt;</b></li>");
             }
         }
 
@@ -500,10 +507,10 @@ $(document).ready(function(){
                 if (errors == 0){
                     $("#errors-list").show();
                     $("#errors-list").append("<p>Please review the following:</p><ul>");
-                    $("#errors-list").append("<li>This code contains <b>French links</b></li>");  
-                    errors = 1 
+                    $("#errors-list").append("<li>This code contains <b>French links</b></li>");
+                    errors = 1
                 }else{
-                    $("#errors-list").append("<li>This code contains <b>French links</b></li>");  
+                    $("#errors-list").append("<li>This code contains <b>French links</b></li>");
                 }
             }
         }else if (language == "fra"){
@@ -511,10 +518,10 @@ $(document).ready(function(){
                 if (errors == 0){
                     $("#errors-list").show();
                     $("#errors-list").append("<p>Please review the following:</p><ul>");
-                    $("#errors-list").append("<li>This code contains <b>English links</b></li>");  
-                    errors = 1 
+                    $("#errors-list").append("<li>This code contains <b>English links</b></li>");
+                    errors = 1
                 }else{
-                    $("#errors-list").append("<li>This code contains <b>English links</b></li>");  
+                    $("#errors-list").append("<li>This code contains <b>English links</b></li>");
                 }
             }
         }
