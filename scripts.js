@@ -390,6 +390,8 @@ $(document).ready(function(){
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><strong><sup>\[\d*\]<\/sup><\/strong><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>")
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><sup>\[\d*\]<\/sup><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>")
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>")
+                .replace(/<sup> <a href="#_ftn(\d*)" name="_ftnref\d*"><sup>\[\d*\]<\/sup><\/a><\/sup>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">Footnote </span>$1</a></sup>") 
+                //<sup> <a href="#_ftn31" name="_ftnref31"><sup>[31]</sup></a></sup>
                 .replace(/ <sup id="fn/g, '<sup id="fn')//more than one space
                 .concat("\n</dl>\n</aside>")
                 .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">Footnotes</h2>\n\t<dl><p>')//more than one space
