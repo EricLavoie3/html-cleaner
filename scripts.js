@@ -121,13 +121,22 @@ $(document).ready(function(){
 
         // Spaces 3 // 
 
-        // Moves space to before opening b tag and after closing b tag
-        .replace(/\s+<\/b>/g, "</b> ")
+        // Moves space to before opening bold tag and after closing bold tag
         .replace(/<b>\s+/g, " <b>")
+        .replace(/\s+<\/b>/g, "</b> ")
         .replace(/<strong>\s+/g, " <strong>")
         .replace(/\s+<\/strong>/g, "</strong> ")
+        .replace(/<b>&nbsp;+/g, "&nbsp;<b>")
         .replace(/&nbsp;+<\/b>/g, "</b>&nbsp;")
+        .replace(/<strong>&nbsp;+/g, "&nbsp;<strong>")
         .replace(/&nbsp;+<\/strong>/g, "</strong>&nbsp;")
+
+        // Moves space to before opening italics tag and after closing italics tag
+        .replace(/<em>\s+/g, " <em>")
+        .replace(/\s+<\/em>/g, "</em> ")
+        .replace(/<em>&nbsp;+/g, "&nbsp;<em>")
+        .replace(/&nbsp;+<\/em>/g, "</em>&nbsp;")
+
 
         // Removes space before closing p tag
         .replace(/\s+<\/p/g, "</p") 
