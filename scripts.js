@@ -557,18 +557,28 @@ $(document).ready(function(){
             $(this).remove(); 
         });
 
-        
         div.find('div').filter(function () {
             return $(this).html().trim().startsWith('<hr>') &&
                    $(this).find('div[id^="_com_"]').length > 0 &&
                    $(this).find('a[href^="#_msoanchor_"]').length > 0;
         }).remove();
-        
 
         // Removes <a> tags without attributes but keep the inner content (including nested tags)
         div.find('a').each(function () {
             if (this.attributes.length === 0) {
                 $(this).replaceWith($(this).html());
+            }
+        });
+
+         // Adds .lst-spcd to parent <ul> or <ol> if any <li> exceeds 150 characters
+         div.find('li').each(function () {
+            const charCount = $(this).text().length;
+            if (charCount > 150) {
+                const parentList = $(this).closest('ul, ol');
+                const existingClasses = parentList.attr('class') || "";
+                if (!existingClasses.includes('lst-spcd')) {
+                    parentList.addClass('lst-spcd');
+                }
             }
         });
 
