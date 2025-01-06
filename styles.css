@@ -4,6 +4,7 @@ body {
     display: flex;
     justify-content: center;/* Centers horizontally */
     font-family:Arial, Helvetica, sans-serif;
+    background-color:#FAFAFA;
     }
 
 #container{
@@ -18,9 +19,17 @@ ul{
     margin-top:8px;
 }
 
-ul#actions > li {
+ul.actions:last-of-type {
+    margin-bottom:10px;
+}
+
+ul.actions > li {
     display: inline-block;
     /* You can also add some margins here to make it look prettier */
+}
+
+ul.actions li input[type="button"]{
+    padding:5px;
 }
 
 div#errors-list{
@@ -77,4 +86,4 @@ details[open] {
 }
 
 
-#actions, #actions li{margin:0 0 5px 0; padding:0; }
+.actions, #actions li{margin:0 0 5px 0; padding:0; }

@@ -5,7 +5,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
     <script src="scripts.js" defer></script>
     <link rel="stylesheet" href="styles.css">
-
 </head>
 
 <body>
@@ -13,17 +12,22 @@
 
     <h1>HTML Cleaner (beta)</h1>
 
-    <ul id="actions">
+    <h2>Clean</h2>
+
+    <ul class="actions">
         <li><input id="btn-clean-html-eng" type="button" value="Clean HTML EN" /></li>
         <li><input id="btn-clean-html-fra" type="button" value="Clean HTML FR" /></li>
+    </ul>
+
+    <h2>Actions</h2>
+
+    <ul class="actions">
         <li><input id="btn-ftn-en" type="button" value="Footnotes EN" /></li>
         <li><input id="btn-ftn-fr" type="button" value="Footnotes FR" /></li>
         <li><input id="btn-canada-links" type="button" value="Canada.ca links (only for Canada.ca pages)" /></li>
         <li><input id="btn-remove-utm-codes" type="button" value="Remove UTM codes" /></li>
-        <li><input id="btn-details-summary" type="button" value="Add details/summary" /></li>
+        <li><input id="btn-details-summary" type="button" value="Convert H2 to details/summary" /></li>
         <li><input id="btn-copy-code" type="button" value="Copy code" /></li>
-        <!--li><input id="btn-remove-p-li" type="button" value="Remove P from LI" /></li-->
-        <!--li><input id="btn-errors" type="button" value="Check for errors" /></li-->
     </ul>
 
     <div id="errors-list">
