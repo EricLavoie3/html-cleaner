@@ -27,7 +27,6 @@ $(document).ready(function(){
     }); 
 
 
-
     function cleanHTML(language) {
         var html = $('textarea#textareaID').val()
 
@@ -466,6 +465,9 @@ $(document).ready(function(){
         // Removes trailing spaces at end of headings
         .replace(/(&nbsp;*)<\/h(\d)>/g, "</h$2>")
 
+        // Removes leading spaces at begining of headings
+        .replace(/<h(\d)>\s*(\w)/g, "<h$1>$2")
+
         // Removes empty P tags
         .replace(/<p><strong><\/strong><\/p>/g, "") 
 
@@ -580,8 +582,8 @@ $(document).ready(function(){
             }
         });
 
+        
         html = div.html();
-
 
         // Final search and replaces
         html = html.replace(/&nbsp;<\/p>/g, "</p>")
@@ -658,6 +660,25 @@ $(document).ready(function(){
             .replace(/\?utm[^"]*/g, '')
         $("textarea#textareaID").val(html);
     });
+
+     // Expand/collapse
+     $("#btn-details-summary").click(function () {
+     
+        // Get the HTML content from the textarea
+        var html = $('textarea#textareaID').val()
+            .replace(/<h2>/, '<h2 class="first-h2">')
+            .replace(/<h2>(.*?)<\/h2>/g, '</details>\n\n<details>\n<summary>\n<h2 class="h3">$1</h2>\n</summary>')
+            .replace(/<h2 class="first-h2">(.*?)<\/h2>/, '<details>\n<summary>\n<h2 class="h3">$1</h2>\n</summary>')
+            .concat("\n</details>")
+            .replace(/<\/p>\s*<\/details>/g, "</p>\n</details>")
+            .replace(/<\/ul>\s*<\/details>/g, "</ul>\n</details>")
+            .replace(/<\/ol>\s*<\/details>/g, "</ol>\n</details>")
+    
+        // Make sure to properly encode HTML to prevent issues with the textarea
+        $('textarea#textareaID').val(html);
+        $('textarea#textareaID').scrollTop(0);
+    });
+    
 
     // Finds common coding issues
     function findIssues(language) {
