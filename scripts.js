@@ -6,13 +6,13 @@ $(document).ready(function(){
     // Clean HTML
     $("#btn-clean-html-eng").click(function () {
         var language ="eng";
-        cleanHTML();
+        cleanHTML(language);
         findIssues(language);
     });
 
     $("#btn-clean-html-fra").click(function () {
         var language ="fra";
-        cleanHTML();
+        cleanHTML(language);
         findIssues(language);
     });
 
@@ -28,7 +28,7 @@ $(document).ready(function(){
 
 
 
-    function cleanHTML() {
+    function cleanHTML(language) {
         var html = $('textarea#textareaID').val()
 
         // Spaces //
@@ -96,18 +96,28 @@ $(document).ready(function(){
         // Removes space between quotes and end of tag
         .replace(/"(\s+)>/g, '">')
 
-         // Removes duplcate non-breaking spaces
-        .replace(/(&nbsp;)+/g, "&nbsp;") 
+         // Removes duplcate non-breaking spaces, but check first if it's part of comment code
+         .replace(/(&nbsp;)+/g, "&nbsp;") 
 
+         //Removes &nbsp after Word comments code
+         if(language=="eng"){
+            html = html.replace(/(name="_msoanchor_\d+">\[[^\]]+\]<\/a>)&nbsp;/g, "$1")
+         }else if (language=="fra"){
+            html = html.replace(/(name="_msoanchor_\d+">\[[^\]]+\]<\/a>)&nbsp;(?![:–])/g, "$1")
+         };
+
+
+
+        
         // Removes non breaking space before closing p tag
-        .replace(/&nbsp;<\/p/g, "</p")  
+        html = html.replace(/&nbsp;<\/p/g, "</p")  
 
 
         // Links //
 
         // Removes empty a tags
         .replace(/<a name="([^>]*)>([^>]*)<\/a>/g, "$2")
-        .replace(/<a>([^>]*)<\/a>/g, "$1")
+        //.replace(/<a>([^>]*)<\/a>/g, "$1")
 
         
         // Colons //
@@ -522,23 +532,45 @@ $(document).ready(function(){
         .replace(/<br>>/g, "<br>\n")
 
         // Formats some of the code with tabs
-        .replace(/\n<li/g, "\n\t<li")//
-        .replace(/\n<thead/g, "\n\t<thead")//
-        .replace(/\n<\/thead/g, "\n\t</thead")//
-        .replace(/\n<tbody/g, "\n\t<tbody")//
-        .replace(/\n<\/tbody/g, "\n\t</tbody")//
-        .replace(/\n<tr/g, "\n\t\t<tr")//
-        .replace(/\n<\/tr/g, "\n\t\t</tr")//
-        .replace(/\n<td/g, "\n\t\t\t<td")//
-        .replace(/\n<th/g, "\n\t\t\t<th")//
-        .replace(/<br><br><\/p>/g, "</p>")//
-        .replace(/&nbsp;<\/li>/g, "</li>")//
-        .replace(/(<br>)*<\/li>/g, "</li>")//
+        .replace(/\n<li/g, "\n\t<li")
+        .replace(/\n<thead/g, "\n\t<thead")
+        .replace(/\n<\/thead/g, "\n\t</thead")
+        .replace(/\n<tbody/g, "\n\t<tbody")
+        .replace(/\n<\/tbody/g, "\n\t</tbody")
+        .replace(/\n<tr/g, "\n\t\t<tr")
+        .replace(/\n<\/tr/g, "\n\t\t</tr")
+        .replace(/\n<td/g, "\n\t\t\t<td")
+        .replace(/\n<th/g, "\n\t\t\t<th")
+        .replace(/<br><br><\/p>/g, "</p>")
+        .replace(/&nbsp;<\/li>/g, "</li>")
+        .replace(/(<br>)*<\/li>/g, "</li>")
 
-        // Removes paragraph tag inside list and table elements
+       
+        // Sets up Javascript Finds
         let div = $('<div></div>');
         div.html(html);
 
+        // Removes Word comments
+        div.find('a[href*="#_msocom"]').each(function () {
+            $(this).remove(); 
+        });
+
+        
+        div.find('div').filter(function () {
+            return $(this).html().trim().startsWith('<hr>') &&
+                   $(this).find('div[id^="_com_"]').length > 0 &&
+                   $(this).find('a[href^="#_msoanchor_"]').length > 0;
+        }).remove();
+        
+
+        // Removes <a> tags without attributes but keep the inner content (including nested tags)
+        div.find('a').each(function () {
+            if (this.attributes.length === 0) {
+                $(this).replaceWith($(this).html());
+            }
+        });
+
+        // Removes paragraph tag inside list and table elements
         let elements = div.find('li, th, td, dt, dd');
         elements.each(function () {
             let paragraphs = $(this).find('p');
@@ -547,7 +579,12 @@ $(document).ready(function(){
                 $(this).html(content);
             }
         });
+
         html = div.html();
+
+
+        // Final search and replaces
+        html = html.replace(/&nbsp;<\/p>/g, "</p>")
 
         // Replaces the textarea with the update code
         $("textarea#textareaID").val(html);
