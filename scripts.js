@@ -611,13 +611,22 @@ $(document).ready(function(){
                 var footnoteRef = ""
             };
 
+            // Check if the content ends with </dl></aside> (ignoring spaces)
+            const trimmedHtml = html.trim();
+            const closingTags = "</dl>\n</aside>";
+            const regex = new RegExp(`${closingTags.replace(/</g, '<\\s*').replace(/>/g, '\\s*>')}\\s*$`, 'i');
+
+            if (!regex.test(trimmedHtml)) {
+                html = html.concat("\n</dl>\n</aside>");
+            }
+
             html = html.replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><strong>\[\d*\]<\/strong><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">" + footnote + " </span>$1</a></sup>")
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><strong><sup>\[\d*\]<\/sup><\/strong><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">" + footnote + " </span>$1</a></sup>")
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*"><sup><sup>\[\d*\]<\/sup><\/sup><\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">" + footnote + " </span>$1</a></sup>")
                 .replace(/<a href="#_ftn(\d*)" name="_ftnref\d*">\[\d*\]<\/a>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">" + footnote + " </span>$1</a></sup>")
                 .replace(/<sup> <a href="#_ftn(\d*)" name="_ftnref\d*"><sup>\[\d*\]<\/sup><\/a><\/sup>/g, "<sup id=\"fn$1-rf\"><a class=\"fn-lnk\" href=\"#fn$1\"><span class=\"wb-inv\">" + footnote + " </span>$1</a></sup>") 
                 .replace(/ <sup id="fn/g, '<sup id="fn')
-                .concat("\n</dl>\n</aside>")
+                //.concat("\n</dl>\n</aside>")
                 .replace(/<p>(?=<a href="#_ftnref1")/g, '<aside class="wb-fnote" role="note">\n\t<h2 id="fn">' + footnotes + '</h2>\n\t<dl><p>')
                 .replace(/_ftn(\d)*">(<sup>)*(\[\d*\])(<\/sup>)*/g, '_ftn$1">$3')
                 .replace(/<p><a href="#_ftnref(\d*)" name="_ftn(\d*)">\[(\d*)\]<\/a>((.|\n)*?)((?=<p><a href=)|(?=<\/dl>))/g, '\n\t\t<dt>' + footnote + ' $1</dt>\n\t\t<dd id="fn$1">\n\t\t\t<p>$4\t\t\t<p class="fn-rtn"><a href="#fn$1-rf"><span class="wb-inv">' + returnRef + ' </span>$1' + footnoteRef + '</a></p>\n\t\t</dd>')
