@@ -1,69 +1,68 @@
 <html>
+
 <head>
     <title>HTML Cleaner (beta)</title>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
     <script src="scripts.js" defer></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div id="container">
+    <div class="container">
 
-    <h1>HTML Cleaner (beta)</h1>
+        <h1>HTML Cleaner (beta)</h1>
 
-    <h2>Clean</h2>
+        <h2>Clean</h2>
 
-    <ul class="actions">
-        <li><input id="btn-clean-html-eng" type="button" value="Clean HTML EN" /></li>
-        <li><input id="btn-clean-html-fra" type="button" value="Clean HTML FR" /></li>
-    </ul>
+        <ul class="actions">
+            <li class="action-item"><button id="btn-clean-html-eng">Clean HTML EN</button></li>
+            <li class="action-item"><button id="btn-clean-html-fra">Clean HTML FR</button></li>
+        </ul>
 
-    <h2>Actions</h2>
+        <h2>Actions</h2>
 
-    <ul class="actions">
-        <li><input id="btn-ftn-en" type="button" value="Footnotes EN" /></li>
-        <li><input id="btn-ftn-fr" type="button" value="Footnotes FR" /></li>
-        <li><input id="btn-canada-links" type="button" value="Canada.ca links (only for Canada.ca pages)" /></li>
-        <li><input id="btn-remove-utm-codes" type="button" value="Remove UTM codes" /></li>
-        <li><input id="btn-details-summary" type="button" value="Convert H2 to details/summary" /></li>
-        <li><input id="btn-copy-code" type="button" value="Copy code" /></li>
-    </ul>
+        <ul class="actions">
+            <li class="action-item"><button id="btn-ftn-en">Footnotes EN</button></li>
+            <li class="action-item"><button id="btn-ftn-fr">Footnotes FR</button></li>
+            <li class="action-item"><button id="btn-canada-links">Canada.ca links (only for Canada.ca pages)</button></li>
+            <li class="action-item"><button id="btn-remove-utm-codes">Remove UTM codes</button></li>
+            <li class="action-item"><button id="btn-details-summary">Convert H2 to details/summary</button></li>
+            <li class="action-item"><button id="btn-copy-code">Copy code</button></li>
+        </ul>
 
-    <div id="errors-list">
+        <div id="errors-list" class="errors-list"></div>
 
+        <details>
+            <summary>Details</summary>
+
+            <h2>Clean HTML EN</h2>
+
+            <ul>
+                <li>Removes empty tags</li>
+                <li>Removes spaces before and after tags</li>
+                <li>Removes reduntant tags</li>
+                <li>Applies proper formatting to tables</li>
+                <li>Removes deprecated attributes</li>
+                <li>Removes comments blocks imported from Word</li>
+                <li>And more!</li>
+            </ul>
+
+            <h2>Footnotes EN and Footnotes FR</h2>
+
+            <ul>
+                <li>Applies the <a href="https://wet-boew.github.io/v4.0-ci/demos/footnotes/footnotes-en.html">WET footnote</a> styles</li>
+            </ul>
+
+            <h2>Canada.ca links</h2>
+
+            <ul>
+                <li>Converts "https://www.canada.ca/" to "/content/canadasite/"</li>
+            </ul>
+        </details>
+
+        <textarea id="textareaID" placeholder="Paste your HTML here"></textarea>
     </div>
-
-    <details>
-        <summary>Details</summary>
-
-        <h2>Clean HTML EN</h2>
-
-        <ul>
-            <li>Removes empty tags</li>
-            <li>Removes spaces before and after tags</li>
-            <li>Removes reduntant tags</li>
-            <li>Applies proper formatting to tables</li>
-            <li>Removes deprecated attributes</li>
-            <li>Removes comments blocks imported from Word</li>
-            <li>And more!</li>
-        </ul>
-
-        <h2>Footnotes EN and Footnotes FR</h2>
-
-        <ul>
-            <li>Applies the <a href="https://wet-boew.github.io/v4.0-ci/demos/footnotes/footnotes-en.html">WET footnote</a> styles</li>
-        </ul>
-
-        <h2>Canada.ca links</h2>
-
-        <ul>
-            <li>Converts "https://www.canada.ca/" to "/content/canadasite/"</li>
-        </ul>
-    </details>
-
-    <textarea id="textareaID" rows="40" cols="150"></textarea>
-</div>
 </body>
 
 </html>

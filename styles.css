@@ -1,89 +1,171 @@
 @charset "UTF-8";
 
+/* Global */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --clr-border: #DDD;
+    --clr-bg-light: #FAFAFA;
+    --clr-bg-regular: #EEE;
+    --clr-bg-dark: #dadada;
+    --clr-link: #0453ad;
+    --size-border-radius: 4px;
+}
+
+html {
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--clr-bg-light);
+    -webkit-font-smoothing: antialiased
+}
+
 body {
-    display: flex;
-    justify-content: center;/* Centers horizontally */
-    font-family:Arial, Helvetica, sans-serif;
-    background-color:#FAFAFA;
+    margin: 0;
+    padding-block: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    margin-bottom: 0.5em;
+    font-size: 1.275rem;
+}
+
+ul {
+    margin-top: 8px;
+
+    &:last-child {
+        margin-bottom: 0;
     }
-
-#container{
-    width: 1920 px;
 }
 
-h2{
-    font-size: 16px;
+li {
+    margin-bottom: 8px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
-ul{
-    margin-top:8px;
+a,
+a:visited {
+    color: var(--clr-link);
 }
 
-ul.actions:last-of-type {
-    margin-bottom:10px;
+input,
+textarea {
+    font-size: inherit;
 }
 
-ul.actions > li {
+button {
     display: inline-block;
-    /* You can also add some margins here to make it look prettier */
-}
-
-ul.actions li input[type="button"]{
-    padding:5px;
-}
-
-div#errors-list{
-    border:1px solid #ddd;
-    padding:0 15px 15px;
-    background-color:#f3e9e8;
-    margin:10px 0 20px;
-}
-
-details[open] > summary {
-    margin-bottom: 15px;
-}
-
-details[open]>summary {
-    border: 0;
-    border-bottom: 1px solid #ddd;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    list-style-type: disclosure-open;
-    margin-bottom: .25em;
-}
-details summary {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    color: #295376;
-    padding: 5px 15px;
-}
-details>summary {
-    margin-left: -1.1em;
-    margin-right: -1.1em;
-}
-summary {
-    display: list-item !important;
-    list-style-type: none;
-    list-style-type: disclosure-closed;
-    visibility: visible !important;
-}
-summary{
+    padding: 0.5em;
+    background-color: var(--clr-bg-regular);
+    border: solid 1px var(--clr-border);
+    border-radius: var(--size-border-radius);
     cursor: pointer;
+    transition: background-color 150ms;
+
+    &:hover {
+        background-color: var(--clr-bg-dark);
+    }
 }
+
+textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    height: 400px;
+    padding: 8px;
+    background-color: #FFF;
+    border: solid 1px var(--clr-border);
+    border-radius: var(--size-border-radius);
+
+    &::placeholder {
+        color: #AAA;
+    }
+}
+
+
 details {
-    padding-left: 1.1em;
-    padding-right: 1.1em;
-    margin-bottom: .7em;
+    --size-padding: 15px;
+
+    margin-bottom: 20px;
+    border-radius: var(--size-border-radius);
+    border: solid 1px var(--clr-border);
+    overflow: hidden;
+
+    &[open] {
+        border-radius: var(--size-border-radius);
+    }
+    &[open]::details-content {
+        padding: 20px var(--size-padding);
+        background-color: #FFF;
+    }
+    & > :nth-child(2) {
+        margin-top: 0;
+    }
+    & > :last-child {
+        margin-bottom: 0;
+    }
 }
 
-details[open] {
-    padding-bottom: 10px;
+summary {
+    padding: 10px var(--size-padding);
+    color: var(--clr-link);
+    cursor: pointer;
+    transition: background-color 150ms;
+
+    details[open] > & {
+        border-bottom: 1px solid var(--clr-border);
+    }
+    &:hover {
+        background-color: var(--clr-bg-dark);
+    }
 }
 
-details[open] {
-    border: 1px solid #ddd;
-    border-radius: 4px;
+/* Actions */
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 0;
 }
 
+.action-item {
+    display: inline-block;
+    margin: 0;
+}
 
-.actions, #actions li{margin:0 0 5px 0; padding:0; }
+/* Errors list */
+
+.errors-list {
+    --clr-bg-error: #f3e9e8;
+
+    border: 1px solid color-mix(in srgb, var(--clr-bg-error), black 15%);
+    margin-block: 10px 20px;
+    padding: 15px;
+    background-color: var(--clr-bg-error);
+    border-radius: var(--size-border-radius);
+
+    & > :first-child {
+        margin-top: 0;
+    }
+}
+
+/* Utilities */
+
+.container {
+    max-width: 1000px;
+    margin-inline: auto;
+    padding-inline: 20px;
+}
