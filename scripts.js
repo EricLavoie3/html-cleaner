@@ -721,8 +721,6 @@ $(document).ready(function () {
             $("#errors-list").show();
             $("#errors-list").append("<p>Please review the following:</p><ul></ul>");
             $("ul", "#errors-list").append(errors.map(error => `<li>${error}</li>`).join(''));
-            console.log(errors);
-            console.log(errors.map(error => `<li>${error}</li>`).join(''));
         } else {
             $("#errors-list").hide();
         }
