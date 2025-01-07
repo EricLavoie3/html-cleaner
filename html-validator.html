@@ -98,7 +98,7 @@ function validateURLs2() {
     });
 }
 
-function validateURLs() {
+function validateURLs3() {
     const errorTable = document.getElementById('errorTable');
     const messageParagraph = document.getElementById('messageParagraph');
     errorTable.innerHTML = '<tr><th>URL</th><th>Error messages</th></tr>';
@@ -158,6 +158,75 @@ function validateURLs() {
                 }
             });
     });
+}
+function validateURLs() {
+    const errorTable = document.getElementById('errorTable');
+    const messageParagraph = document.getElementById('messageParagraph');
+    errorTable.innerHTML = '<tr><th>URL</th><th>Error messages</th></tr>';
+    let hasErrors = false; // Track if any errors are found
+    
+    // Get the list of URLs from the textarea
+    const textarea = document.getElementById('urlListTextarea');
+    const urls = textarea.value.split('\n').map(url => url.trim());
+
+    // Function to validate a single URL with a delay
+    function validateNext(index) {
+        if (index >= urls.length) {
+            // After the last URL, decide what to display
+            if (hasErrors) {
+                errorTable.style.display = 'table';
+                messageParagraph.style.display = 'none';
+            } else {
+                errorTable.style.display = 'none';
+                messageParagraph.style.display = 'block';
+                messageParagraph.textContent = 'No validation errors found.';
+            }
+            return;
+        }
+
+        const url = urls[index];
+        fetch(`https://validator.w3.org/nu/?doc=${url}&out=json`)
+            .then(response => response.json())
+            .then(data => {
+                const errorMessages = data.messages && data.messages
+                    .filter(message => message.type !== "info")
+                    .map(message => `${message.type} - Line ${message.lastLine}: ${message.message}`)
+                    .join('\n');
+                
+                // Only add a row if there are error messages
+                if (errorMessages) {
+                    hasErrors = true;
+                    const row = errorTable.insertRow();
+                    
+                    const urlCell = row.insertCell();
+                    urlCell.innerText = url;
+                    urlCell.style.wordWrap = "break-word";
+                    urlCell.style.whiteSpace = "pre-wrap";
+                    
+                    const errorCell = row.insertCell();
+                    
+                    // Display error messages in an unordered list
+                    const errorList = document.createElement('ul');
+                    errorMessages.split('\n').forEach(errorMessage => {
+                        const errorListItem = document.createElement('li');
+                        errorListItem.textContent = errorMessage;
+                        errorList.appendChild(errorListItem);
+                    });
+                    errorCell.appendChild(errorList);
+                    
+                    // Apply background color for rows with errors
+                    row.style.backgroundColor = '#ffc0c0'; // Light red
+                }
+            })
+            .catch(error => console.error(`Error validating ${url}:`, error))
+            .finally(() => {
+                // Validate the next URL after a 1-second delay
+                setTimeout(() => validateNext(index + 1), 1000);
+            });
+    }
+
+    // Start validating URLs
+    validateNext(0);
 }
 </script>
 </body>
