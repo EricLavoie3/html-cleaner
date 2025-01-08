@@ -194,15 +194,14 @@ $(document).ready(function () {
             .replace(/ cellspacing="(\d+)"/g, '')
             .replace(/ cellpadding="(\d+)"/g, '')
 
-            // Applies class table table-bordered to all tables
-            .replace(/<table width="100%">/g, '<table class="table table-bordered">')
-            .replace(/<table>/g, '<table class="table table-bordered">')
-            .replace(/ border="(\d+)" cellspacing="(\d+)" cellpadding="(\d+)"/g, ' class="table table-bordered"')
-
-            // Removes width valign and nowrap
+            // Removes table attributes
             .replace(/ width="(\d+)\%*"/g, "")
             .replace(/ valign="(\w+)"/g, "")
             .replace(/ nowrap/g, "")
+            .replace(/ border="(\d+)" cellspacing="(\d+)" cellpadding="(\d+)"/g, ' class="table table-bordered"')
+
+            // Applies class table table-bordered to all tables
+            .replace(/<table>/g, '<table class="table table-bordered">')
 
             // Adds class active to the first tr tag in a table
             .replace(/<table((.|\n)*?)<tr>/g, "<table$1<tr class=\"active\">")
@@ -492,6 +491,9 @@ $(document).ready(function () {
 
             // Removes space before beginning of code
             .replace(/^[\s]+/g, "")
+
+            // Removes leading spaces at begining of headings
+            .replace(/<h(\d)>\s*(\w)/g, "<h$1>$2")
 
             // Updates French characters
             .replace(/&Agrave;/g, "À")
