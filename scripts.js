@@ -16,15 +16,25 @@ $(document).ready(function () {
         findIssues(language);
     });
 
-    $("#btn-ftn-en").click(function () {
+    $("#btn-ftn-eng").click(function () {
         var language = "eng";
         wetFootnotes(language);
     });
 
-    $("#btn-ftn-fr").click(function () {
+    $("#btn-ftn-fra").click(function () {
         var language = "fra";
         wetFootnotes(language);
     });
+
+    $("#btn-details-summary-eng").click(function () {
+        var language = "eng";
+        detailsSummary(language);
+    }); 
+
+    $("#btn-details-summary-fra").click(function () {
+        var language = "fra";
+        detailsSummary(language);
+    }); 
 
 
     function cleanHTML(language) {
@@ -672,14 +682,22 @@ $(document).ready(function () {
     });
 
     // Expand/collapse
-    $("#btn-details-summary").click(function () {
-     
+   
+    function detailsSummary(language) {    
+        if(language=="eng"){
+            var expandAll = "Expand all"
+            var collapseAll = "Collapse all"
+        }else if(language=="fra"){
+            var expandAll = "Afficher tout"
+            var collapseAll = "Réduire tout"
+        };
+
         // Get the HTML content from the textarea
         var html = $('textarea#textareaID').val()
             .replace(/<h2>/, '<h2 class="first-h2">')
-            .replace(/<h2>(.*?)<\/h2>/g, '</details>\n\n<details>\n<summary>\n<h2 class="h3">$1</h2>\n</summary>')
-            .replace(/<h2 class="first-h2">(.*?)<\/h2>/, '<details>\n<summary>\n<h2 class="h3">$1</h2>\n</summary>')
-            .concat("\n</details>")
+            .replace(/<h2>(.*?)<\/h2>/gs, '</details>\n\n<details>\n<summary>\n<h2 class="h3">$1</h2>\n</summary>')
+            .replace(/<h2 class="first-h2">(.*?)<\/h2>/s, '<div id="lt-tog">\n\n<div class="btn-group mrgn-tp-md mrgn-bttm-md">\n<button type="button" class="btn btn-default wb-toggle" data-toggle=\'{"selector": "details", "parent": "#lt-tog", "print": "on", "type": "on"}\'>' + expandAll + '</button>\n<button type="button" class="btn btn-default wb-toggle" data-toggle=\'{"selector": "details", "parent": "#lt-tog", "type": "off"}\'>' + collapseAll + '</button>\n</div>\n\n<details>\n<summary>\n<h2 class="h3">$1</h2>\n</summary>')
+            .concat("\n</details>\n</div>")
             .replace(/<\/p>\s*<\/details>/g, "</p>\n</details>")
             .replace(/<\/ul>\s*<\/details>/g, "</ul>\n</details>")
             .replace(/<\/ol>\s*<\/details>/g, "</ol>\n</details>")
@@ -687,8 +705,7 @@ $(document).ready(function () {
         // Make sure to properly encode HTML to prevent issues with the textarea
         $('textarea#textareaID').val(html);
         $('textarea#textareaID').scrollTop(0);
-    });
-    
+    };
 
     // Finds common coding issues
     function findIssues(language) {
