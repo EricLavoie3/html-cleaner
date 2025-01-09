@@ -500,10 +500,6 @@ $(document).ready(function () {
             // Removes leading spaces at begining of headings
             .replace(/<h(\d)>\s*(\w)/g, "<h$1>$2")
 
-            // Removes br from p tag
-            .replace(/<br>(\s*)<\/p>/g, "</p>")
-            .replace(/<br \/>(\s*)<\/p>/g, "</p>")
-
 
             // Updates French characters
             .replace(/&Agrave;/g, "À")
@@ -608,6 +604,10 @@ $(document).ready(function () {
 
         // Final search and replaces
         html = html.replace(/&nbsp;<\/p>/g, "</p>")
+
+            // Removes br from p tag
+            .replace(/<br>(\s*)<\/p>/g, "</p>")
+            .replace(/<br \/>(\s*)<\/p>/g, "</p>")
 
         // Replaces the textarea with the update code
         $("textarea#textareaID").val(html);
