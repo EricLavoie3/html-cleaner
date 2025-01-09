@@ -55,7 +55,7 @@ $(document).ready(function () {
 
             // Removes space before closing h tag and after open h tag
             .replace(/(\w)\s*<\/h(\d)>/g, "$1</h$2>")
-            .replace(/<h(\d)>\s*(\w)/g, "<h$1>$2")
+            .replace(/<h(\d)>\s*([\w(])/g, "<h$1>$2")
             .replace(/\s*<\/h(\d)>/g, "</h$1>")
 
 
@@ -115,8 +115,6 @@ $(document).ready(function () {
             html = html.replace(/(name="_msoanchor_\d+">\[[^\]]+\]<\/a>)&nbsp;(?![:–])/g, "$1")
         };
 
-
-
         
         // Removes non breaking space before closing p tag
         html = html.replace(/&nbsp;<\/p/g, "</p")
@@ -125,7 +123,7 @@ $(document).ready(function () {
             // Links //
 
             // Removes empty a tags
-            .replace(/<a name="([^>]*)>([^>]*)<\/a>/g, "$2")
+            .replace(/<a name="([^"]*)">(.*?)<\/a>/g, "$2")
             //.replace(/<a>([^>]*)<\/a>/g, "$1")
 
         
@@ -608,6 +606,11 @@ $(document).ready(function () {
             // Removes br from p tag
             .replace(/<br>(\s*)<\/p>/g, "</p>")
             .replace(/<br \/>(\s*)<\/p>/g, "</p>")
+            
+            // Removes space before closing h tag and after open h tag
+            .replace(/(\w)\s*<\/h(\d)>/g, "$1</h$2>")
+            .replace(/<h(\d)>\s*([\w(])/g, "<h$1>$2")
+            .replace(/\s*<\/h(\d)>/g, "</h$1>")
 
         // Replaces the textarea with the update code
         $("textarea#textareaID").val(html);
