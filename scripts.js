@@ -593,11 +593,28 @@ $(document).ready(function () {
             }
         });
 
+        // beautify the HTML code using js-beautify custom options
+        const options = {
+            // number of spaces for indentation
+            indent_size: 2,
+            // wrap lines that exceed the lenght set
+            wrap_line_lenght: 80,
+            // keep existing newlines
+            preserve_newlines: true
+        };
         
         html = div.html();
 
         // Final search and replaces
         html = html.replace(/&nbsp;<\/p>/g, "</p>")
+
+        try {
+            // call beautify method
+            const formattedHTML = html_beautify(html, options);
+            html = formattedHTML;
+        } catch (error) {
+            html = `Error: ${error.message}`;
+        };
 
         // Replaces the textarea with the update code
         $("textarea#textareaID").val(html);
