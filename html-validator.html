@@ -50,7 +50,7 @@
 <textarea id="urlListTextarea" rows="5" cols="50" placeholder="Enter list of URLs here"></textarea><br>
 <button onclick="validateURLs()">Validate URLs</button>
 <p id="messageParagraph" style="display: none;"></p>
-<p id="messageComplete" style="display: none;"></p>
+<p id="messageProgress" style="display: none;"></p>
 <table id="errorTable"></table>
 </div>
 
@@ -163,7 +163,12 @@ function validateURLs3() {
 function validateURLs() {
     const errorTable = document.getElementById('errorTable');
     const messageParagraph = document.getElementById('messageParagraph');
+    const messageProgress = document.getElementById('messageProgress');
+    messageParagraph.style.display = 'none';
+    messageProgress.style.display = 'block';
+    messageProgress.textContent = 'Validation in progress';
     errorTable.innerHTML = '<tr><th>URL</th><th>Error messages</th></tr>';
+    errorTable.style.display = 'none';
     let hasErrors = false; // Track if any errors are found
     
     // Get the list of URLs from the textarea
@@ -182,6 +187,8 @@ function validateURLs() {
                 messageParagraph.style.display = 'block';
                 messageParagraph.textContent = 'No validation errors found.';
             }
+            messageProgress.style.display = 'block';
+            messageProgress.textContent = 'Validation complete';
             return;
         }
 
@@ -228,8 +235,6 @@ function validateURLs() {
 
     // Start validating URLs
     validateNext(0);
-    messageComplete.style.display = 'block';
-    messageComplete.textContent = 'Validation complete';
 }
 </script>
 </body>
