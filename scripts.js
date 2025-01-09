@@ -322,11 +322,16 @@ $(document).ready(function () {
             .replace(/ »/g, '&nbsp;»')
             .replace(/« /g, '«&nbsp;')
 
+            if (language == "fra") {
+                html = html.replace(/(?<=\b\d{1,3}) (?=\d{3}(?:\b| ))/g, "&nbsp;")
+                .replace(/(?<=\b\d{1,3}) (?=\$)/g, "&nbsp;")
+            }
+
 
             // Breaks // 
 
             // Removes br from p tag
-            .replace(/<p><br>\s*/g, "<p>")
+            html = html.replace(/<p><br>\s*/g, "<p>")
             .replace(/<p><br \/>\s*/g, "<p>")
             .replace(/<p><strong><br \/>\s*/g, "<p><strong>")
             .replace(/<p><b><br \/>\s*/g, "<p><b>")
