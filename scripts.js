@@ -29,12 +29,12 @@ $(document).ready(function () {
     $("#btn-details-summary-eng").click(function () {
         var language = "eng";
         detailsSummary(language);
-    }); 
+    });
 
     $("#btn-details-summary-fra").click(function () {
         var language = "fra";
         detailsSummary(language);
-    }); 
+    });
 
 
     function cleanHTML(language) {
@@ -74,7 +74,7 @@ $(document).ready(function () {
             // Removes double bold tags
             .replace(/<\/b>(\s*)<b>/g, "$1")
             .replace(/<\/strong>(\s*)<strong>/g, "$1")
-            
+
             // Removes empty bold tags
             .replace(/<b>(\s*)<\/b>/g, "$1")
             .replace(/<strong>\s*<\/strong>/g, "")
@@ -117,7 +117,7 @@ $(document).ready(function () {
 
 
 
-        
+
         // Removes non breaking space before closing p tag
         html = html.replace(/&nbsp;<\/p/g, "</p")
 
@@ -128,7 +128,7 @@ $(document).ready(function () {
             .replace(/<a name="([^>]*)>([^>]*)<\/a>/g, "$2")
             //.replace(/<a>([^>]*)<\/a>/g, "$1")
 
-        
+
             // Colons //
 
             // Moves bold tag after colon
@@ -138,7 +138,7 @@ $(document).ready(function () {
             .replace(/<\/strong>:/g, ":</strong>")
 
 
-            // Spaces 3 // 
+            // Spaces 3 //
 
             // Moves space to before opening bold tag and after closing bold tag
             .replace(/<b>\s+/g, " <b>")
@@ -179,7 +179,7 @@ $(document).ready(function () {
             // Removes space before ?
             .replace(/&nbsp;\?/g, "?")
             .replace(/ \?/g, "?")
-        
+
             // Removes space before td and th
             .replace(/\s+<\/td>/g, "</td>")
             .replace(/&nbsp;+<\/td>/g, "</td>")
@@ -226,7 +226,7 @@ $(document).ready(function () {
 
             // Removes title attribute
             .replace(/ title="[^"]*"/g, "")
-        
+
             // Removes br clear all
             .replace(/<br clear="all">\s*/gi, "")
 
@@ -239,12 +239,12 @@ $(document).ready(function () {
 
             // Removes empty space in empty TD tags
             .replace(/<td>(\s*)<\/td>/g, "<td></td>")
-        
+
             // Removes space before period
             .replace(/(\s+)\./g, '.')
 
 
-            // Bold // 
+            // Bold //
 
             // Removes double bold tags
             .replace(/<b>(\s*)<b>/g, "<b>$1")
@@ -310,7 +310,7 @@ $(document).ready(function () {
 
             // Removes empty headings
             .replace(/<h\d>(&nbsp;*|\s*)<\/h\d>\s*/g, "")//empty headings
-        
+
 
             // Punctuation //
 
@@ -323,7 +323,7 @@ $(document).ready(function () {
             .replace(/« /g, '«&nbsp;')
 
 
-            // Breaks // 
+            // Breaks //
 
             // Removes br from p tag
             .replace(/<p><br>\s*/g, "<p>")
@@ -373,7 +373,7 @@ $(document).ready(function () {
             .replace(/<\/ul>(\s*)<li>/g, "\</ul>\n</li>\n<li>")
             .replace(/<\/(\w)l>\s*<\/(\w)l>/g, "\</$1l>\n</li>\n</$2l>")
 
-            
+
             // Misc 2
 
             // To test -> .replace(/<h(\d)><a name="(.*)"><\/a>/g, '<h$1 id="">');
@@ -559,7 +559,7 @@ $(document).ready(function () {
             .replace(/&nbsp;<\/li>/g, "</li>")
             .replace(/(<br>)*<\/li>/g, "</li>")
 
-       
+
         // Sets up Javascript Finds
         let div = $('<div></div>');
         div.html(html);
@@ -602,7 +602,7 @@ $(document).ready(function () {
             // keep existing newlines
             preserve_newlines: true
         };
-        
+
         html = div.html();
 
         // Final search and replaces
@@ -626,9 +626,9 @@ $(document).ready(function () {
 
         var html = $('textarea#textareaID').val();
         var count = (html.match(/ftn/g) || []).length;
-        
+
         if (count > 0) {
-            
+
             if (language == "eng") {
                 var footnote = "Footnote"
                 var footnotes = "Footnotes"
@@ -690,8 +690,8 @@ $(document).ready(function () {
     });
 
     // Expand/collapse
-   
-    function detailsSummary(language) {    
+
+    function detailsSummary(language) {
         if(language=="eng"){
             var expandAll = "Expand all"
             var collapseAll = "Collapse all"
@@ -709,7 +709,7 @@ $(document).ready(function () {
             .replace(/<\/p>\s*<\/details>/g, "</p>\n</details>")
             .replace(/<\/ul>\s*<\/details>/g, "</ul>\n</details>")
             .replace(/<\/ol>\s*<\/details>/g, "</ol>\n</details>")
-    
+
         // Make sure to properly encode HTML to prevent issues with the textarea
         $('textarea#textareaID').val(html);
         $('textarea#textareaID').scrollTop(0);
@@ -737,7 +737,7 @@ $(document).ready(function () {
         if (language == "eng" && (html.indexOf("/fr/") >= 0 || html.indexOf("-fra.") >= 0)) {
             errors.push("This code contains <b>French links</b>");
         }
-        
+
         if (language == "fra" && (html.indexOf("/en/") >= 0 || html.indexOf("-eng.") >= 0)) {
             errors.push("This code contains <b>English links</b>");
         }
