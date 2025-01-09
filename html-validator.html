@@ -228,8 +228,8 @@ function validateURLs() {
             })
             .catch(error => console.error(`Error validating ${url}:`, error))
             .finally(() => {
-                // Validate the next URL after a 1-second delay
-                setTimeout(() => validateNext(index + 1), 1000);
+                // Validate the next URL after a 2-second delay
+                setTimeout(() => validateNext(index + 1), 2000);
             });
     }
 
