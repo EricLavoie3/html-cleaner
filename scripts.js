@@ -55,7 +55,7 @@ $(document).ready(function () {
 
             // Removes space before closing h tag and after open h tag
             .replace(/(\w)\s*<\/h(\d)>/g, "$1</h$2>")
-            .replace(/<h(\d)>\s*(\w)/g, "<h$1>$2")
+            .replace(/<h(\d)>\s*([\w(])/g, "<h$1>$2")
             .replace(/\s*<\/h(\d)>/g, "</h$1>")
 
 
@@ -115,9 +115,6 @@ $(document).ready(function () {
             html = html.replace(/(name="_msoanchor_\d+">\[[^\]]+\]<\/a>)&nbsp;(?![:–])/g, "$1")
         };
 
-
-
-
         // Removes non breaking space before closing p tag
         html = html.replace(/&nbsp;<\/p/g, "</p")
 
@@ -125,7 +122,7 @@ $(document).ready(function () {
             // Links //
 
             // Removes empty a tags
-            .replace(/<a name="([^>]*)>([^>]*)<\/a>/g, "$2")
+            .replace(/<a name="([^"]*)">(.*?)<\/a>/g, "$2")
             //.replace(/<a>([^>]*)<\/a>/g, "$1")
 
 
@@ -322,11 +319,16 @@ $(document).ready(function () {
             .replace(/ »/g, '&nbsp;»')
             .replace(/« /g, '«&nbsp;')
 
+            if (language == "fra") {
+                html = html.replace(/(?<=\b\d{1,3}) (?=\d{3}(?:\b| ))/g, "&nbsp;")
+                .replace(/(?<=\b\d{1,3}) (?=\$)/g, "&nbsp;")
+            }
+
 
             // Breaks //
 
             // Removes br from p tag
-            .replace(/<p><br>\s*/g, "<p>")
+            html = html.replace(/<p><br>\s*/g, "<p>")
             .replace(/<p><br \/>\s*/g, "<p>")
             .replace(/<p><strong><br \/>\s*/g, "<p><strong>")
             .replace(/<p><b><br \/>\s*/g, "<p><b>")
@@ -495,6 +497,7 @@ $(document).ready(function () {
             // Removes leading spaces at begining of headings
             .replace(/<h(\d)>\s*(\w)/g, "<h$1>$2")
 
+
             // Updates French characters
             .replace(/&Agrave;/g, "À")
             .replace(/&agrave;/g, "à")
@@ -558,6 +561,15 @@ $(document).ready(function () {
             .replace(/<br><br><\/p>/g, "</p>")
             .replace(/&nbsp;<\/li>/g, "</li>")
             .replace(/(<br>)*<\/li>/g, "</li>")
+      
+            // Removes br from p tag
+            .replace(/<br>(\s*)<\/p>/g, "</p>")
+            .replace(/<br \/>(\s*)<\/p>/g, "</p>")
+            
+            // Removes space before closing h tag and after open h tag
+            .replace(/(\w)\s*<\/h(\d)>/g, "$1</h$2>")
+            .replace(/<h(\d)>\s*([\w(])/g, "<h$1>$2")
+            .replace(/\s*<\/h(\d)>/g, "</h$1>")
 
 
         // Sets up Javascript Finds
