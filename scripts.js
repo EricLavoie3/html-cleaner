@@ -561,11 +561,11 @@ $(document).ready(function () {
             .replace(/<br><br><\/p>/g, "</p>")
             .replace(/&nbsp;<\/li>/g, "</li>")
             .replace(/(<br>)*<\/li>/g, "</li>")
-      
+
             // Removes br from p tag
             .replace(/<br>(\s*)<\/p>/g, "</p>")
             .replace(/<br \/>(\s*)<\/p>/g, "</p>")
-            
+
             // Removes space before closing h tag and after open h tag
             .replace(/(\w)\s*<\/h(\d)>/g, "$1</h$2>")
             .replace(/<h(\d)>\s*([\w(])/g, "<h$1>$2")
@@ -608,7 +608,7 @@ $(document).ready(function () {
         // beautify the HTML code using js-beautify custom options
         const options = {
             // number of spaces for indentation
-            indent_size: 2,
+            indent_size: 4,
             // wrap lines that exceed the lenght set
             wrap_line_lenght: 80,
             // keep existing newlines
