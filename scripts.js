@@ -599,12 +599,8 @@ $(document).ready(function () {
         let elements = div.find('li, th, td, dt, dd');
         elements.each(function () {
             let paragraphs = $(this).find('p');
-            if (paragraphs.length === 1 && paragraphs.children().length === 0) {
-                let content = paragraphs.innerHTML;
-                $(this).html(content);
-            }
-            if (paragraphs.length === 1) {
-                let content = paragraphs[0].innerHTML;
+            if (paragraphs.length === 1 && paragraphs.children().length === 0 && paragraphs.parent().children().length === 1) {
+                let content = paragraphs.html();
                 $(this).html(content);
             }
         });
