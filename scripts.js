@@ -603,6 +603,10 @@ $(document).ready(function () {
                 let content = paragraphs.innerHTML;
                 $(this).html(content);
             }
+            if (paragraphs.length === 1) {
+                let content = paragraphs[0].innerHTML;
+                $(this).html(content);
+            }
         });
 
         // beautify the HTML code using js-beautify custom options
