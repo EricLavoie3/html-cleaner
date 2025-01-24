@@ -594,6 +594,25 @@ $(document).ready(function () {
             }
         });
 
+        //Removes <ins> tag and keeps the content
+        div.find('ins').each(function () {
+            $(this).replaceWith($(this).html());
+        });
+
+        //Removes <del> tag and removes the content
+        div.find('del').remove();
+
+         // Adds .lst-spcd to parent <ul> or <ol> if any <li> exceeds 150 characters
+         div.find('li').each(function () {
+            const charCount = $(this).text().length;
+            if (charCount > 150) {
+                const parentList = $(this).closest('ul, ol');
+                const existingClasses = parentList.attr('class') || "";
+                if (!existingClasses.includes('lst-spcd')) {
+                    parentList.addClass('lst-spcd');
+                }
+            }
+        });
 
         // Removes paragraph tag inside list and table elements
         let elements = div.find('li, th, td, dt, dd');
