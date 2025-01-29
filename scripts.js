@@ -622,6 +622,10 @@ $(document).ready(function () {
                 let content = paragraphs.html();
                 $(this).html(content);
             }
+            // Remove <strong> tags from inside <dt> and <th> tags
+            if ($(this).is('dt') || $(this).is('th')) {
+                $(this).find('strong').contents().unwrap();
+            }
         });
 
         // beautify the HTML code using js-beautify custom options
