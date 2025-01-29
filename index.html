@@ -37,28 +37,61 @@
         <details>
             <summary>Details</summary>
 
-            <h2>Clean HTML EN</h2>
+            <h2>Clean HTML</h2>
 
             <ul>
+                <li>Removes duplicate tags</li>
+                <li>Removes leading and trailing spaces</li>
+                <li>Removes extra spaces</li>
+                <li>Moves &lt;/strong&gt; tags before &lt;br&gt; tags</li>
+                <li>Removes MS Word comments</li>
+                <li>Removes track changes coding</li>
                 <li>Removes empty tags</li>
-                <li>Removes spaces before and after tags</li>
-                <li>Removes reduntant tags</li>
-                <li>Applies proper formatting to tables</li>
-                <li>Removes deprecated attributes</li>
-                <li>Removes comments blocks imported from Word</li>
-                <li>And more!</li>
+                <li>Adds &amp;nbsp; when necessary
+                    <ul>
+                        <li>Before a colon, quote or $ in French</li>
+                        <li>Dates</li>
+                    </ul>
+                </li>
+                <li>Cleans up tables
+                    <ul>
+                        <li>Removes deprecated attributes</li>
+                        <li>Adds WET classes</li>
+                    </ul>
+                </li>
+                <li>Removes &lt;u&gt; tag from &lt;a&gt;</li>
+                <li>Removes type on lists</li>
+                <li>Will turn 2 lists into 1 if one after the other</li>
+                <li>Removes &lt;strong&gt; from headings</li>
+                <li>Adds &lt;h2&gt; to Table of contents</li>
+                <li>Fixes French characters</li>
+                <li>Add.lst-spcd to &lt;ul&gt; or &lt;ol&gt; if content in at least 1 &lt;li&gt; contains more than 150 characters</li>
+                <li>Removes &lt;p&gt; tag from &lt;li&gt;, &lt;td&gt;, &lt;th&gt;, &lt;dt&gt; and &lt;dd&gt; if there is only 1 &lt;p&gt; tag</li>
+                <li>Formats code</li>
             </ul>
 
-            <h2>Footnotes EN and Footnotes FR</h2>
+            <h2>Footnotes</h2>
 
-            <ul>
-                <li>Applies the <a href="https://wet-boew.github.io/v4.0-ci/demos/footnotes/footnotes-en.html">WET footnote</a> styles</li>
-            </ul>
+            <p>Applies the&nbsp;<a href="https://wet-boew.github.io/v4.0-ci/demos/footnotes/footnotes-en.html" data-auth="NotApplicable" data-linkindex="0">WET footnotes</a>&nbsp;styles</p>
 
             <h2>Canada.ca links</h2>
 
+            <p>Converts "https://www.canada.ca/" to "/content/canadasite/"</p>
+
+            <div style="padding-left:10px; border:solid 1px darkslategrey; background-color: lightyellow;">
+                <p><b>Note:</b> only use when the page will be hosted on Canada.ca</p>
+            </div>
+            <h2>H2 to details/summary</h2>
+
             <ul>
-                <li>Converts "https://www.canada.ca/" to "/content/canadasite/"</li>
+                <li>Adds &lt;details&gt; and &lt;summary&gt; tags to H2 sections</li>
+                <li>Adds expand all / collapse all buttons</li>
+            </ul>
+
+            <h2>Remove UTM codes</h2>
+
+            <ul>
+                <li>Removes UTM codes from links that accidentally contains them</li>
             </ul>
         </details>
 
