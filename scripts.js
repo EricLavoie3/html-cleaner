@@ -230,9 +230,13 @@ $(document).ready(function () {
 
             // Spaces 4 //
 
-            // Removes leading and trailing spaces at end and beginning of paragraph tags
+            // Removes leading and trailing spaces at end and beginning of paragraph and table tags
             .replace(/(\s*)<\/p>/g, "</p>")
             .replace(/<p>(\s*)/g, "<p>")
+            .replace(/(\s*)<\/td>/g, "</td>")
+            .replace(/<td>(\s*)/g, "<td>")
+            .replace(/(\s*)<\/th>/g, "</th>")
+            .replace(/<th>(\s*)/g, "<th>")
 
             // Removes empty space in empty TD tags
             .replace(/<td>(\s*)<\/td>/g, "<td></td>")
