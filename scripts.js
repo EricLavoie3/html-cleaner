@@ -2,6 +2,7 @@
 $(document).ready(function () {
 
     $("#errors-list").hide();
+    $("#actionArea").hide();
 
     // Clean HTML
     $("#btn-clean-html-eng").click(function () {
@@ -641,6 +642,59 @@ $(document).ready(function () {
             // keep existing newlines
             preserve_newlines: true
         };
+
+        // List <em> tags for action (replace/remove)
+        let emTags = div.find('em');
+        const emListAction = $('#emListAction');
+
+        if (emTags.length > 0){
+            $("#actionArea").show();
+            emTags.each(function(index, emTag) {
+                const content = $('<div>').text($(emTag).prop('outerHTML')).html();
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <p><pre>${content}</pre><p>
+                    <ul class="actions">
+                        <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'cite')">Cite</button></li>
+                        <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'i')">Italic</button></li>
+                        <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'strong')">Strong</button></li>
+                        <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'remove')">Remove</button></li>
+                    </ul>
+                `;
+                emListAction.append(listItem);
+            });
+        };
+
+        // Define the replaceTag function in the global scope
+        window.replaceTag = function(index, newTag, listItem) {
+            const emTag = emTags[index];
+            const content = $(emTag).html();
+
+            if (newTag === 'remove') {
+                $(emTag).replaceWith(content);
+            } else {
+                $(emTag).replaceWith(`<${newTag}>${content}</${newTag}>`);
+            }
+
+            // Remove the list item from the action list
+            if (listItem) {
+                listItem.parent().parent().remove();
+            }
+
+            // Update the textarea with the modified HTML
+            const textarea = $('#textareaID');
+            const updatedContent = div.html();
+            let beautifiedHtml = html_beautify(updatedContent, options);
+            textarea.val(beautifiedHtml);
+        }
+
+        // Event delegation for the buttons
+        $('#emListAction').on('click', 'button', function() {
+            const index = $(this).data('index');
+            const newTag = $(this).data('tag');
+            const listItem = $(this).closest('li');
+            replaceTag(index, newTag, listItem);
+        });
 
         html = div.html();
 
