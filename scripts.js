@@ -653,7 +653,7 @@ $(document).ready(function () {
                 const content = $('<div>').text($(emTag).prop('outerHTML')).html();
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `
-                    <p><pre>${content}</pre><p>
+                    <pre>${content}</pre>
                     <ul class="actions">
                         <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'cite')">Cite</button></li>
                         <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'i')">Italic</button></li>
