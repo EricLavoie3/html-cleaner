@@ -202,7 +202,7 @@ $(document).ready(function () {
             .replace(/<table>/g, '<table class="table table-bordered">')
 
             // Adds class active to the first tr tag in a table
-            .replace(/<table((.|\n)*?)<tr>/g, "<table$1<tr class=\"active\">")
+            .replace(/<table((?:(?!<tr class="active").|\n)*?)<tr>/g, "<table$1<tr class=\"active\">")
 
             // Removes height tag
             .replace(/ height="(\d+)"/g, "")
