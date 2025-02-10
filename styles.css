@@ -173,3 +173,11 @@ summary {
     margin-inline: auto;
     padding-inline: 20px;
 }
+
+/* Em errors */
+
+ul#emListAction {
+    list-style: none; /* Removes bullets */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+  }
