@@ -181,3 +181,7 @@ ul#emListAction {
     padding: 0; /* Removes default padding */
     margin: 0; /* Removes default margin */
   }
+
+#emListAction li {
+    margin-bottom: 15px;
+  }
