@@ -646,6 +646,7 @@ $(document).ready(function () {
         // List <em> tags for action (replace/remove)
         let emTags = div.find('em');
         const emListAction = $('#emListAction');
+        emListAction.empty();
 
         if (emTags.length > 0){
             $("#actionArea").show();
@@ -655,10 +656,10 @@ $(document).ready(function () {
                 listItem.innerHTML = `
                     <pre>${content}</pre>
                     <ul class="actions">
-                        <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'cite')">Cite</button></li>
-                        <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'i')">Italic</button></li>
-                        <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'strong')">Strong</button></li>
-                        <li class="action-item"><button class="btn btn-danger" onclick="replaceTag(${index}, 'remove')">Remove</button></li>
+                        <li class="action-item"><button onclick="replaceTag(${index}, 'cite')">Cite</button></li>
+                        <li class="action-item"><button onclick="replaceTag(${index}, 'i')">Italic</button></li>
+                        <li class="action-item"><button onclick="replaceTag(${index}, 'strong')">Strong</button></li>
+                        <li class="action-item"><button onclick="replaceTag(${index}, 'remove')">Remove</button></li>
                     </ul>
                 `;
                 emListAction.append(listItem);
@@ -694,6 +695,10 @@ $(document).ready(function () {
             const newTag = $(this).data('tag');
             const listItem = $(this).closest('li');
             replaceTag(index, newTag, listItem);
+            if ($('#emListAction').children().length === 0) {
+                $("#actionArea").hide();
+                $("#errors-list").hide();
+            }
         });
 
         html = div.html();
