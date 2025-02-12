@@ -29,13 +29,18 @@ body {
     padding-block: 20px;
 }
 
-h1 {
-    font-size: 2rem;
+h1, h2, h3, h4, h5, h6 {
+    margin-block: 1em 0.625em;
 }
 
 h2 {
     margin-bottom: 0.5em;
-    font-size: 1.275rem;
+    margin-top: 38px;
+}
+
+p {
+    margin-block: 0 0.875em;
+    margin: 0 0 11.5px;
 }
 
 ul {
@@ -56,6 +61,7 @@ li {
 
 pre {
     white-space: pre-wrap;
+    font-size: 17px;
 }
 
 a,
