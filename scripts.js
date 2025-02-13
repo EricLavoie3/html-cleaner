@@ -774,8 +774,8 @@ $(document).ready(function () {
     // Converts Canada.ca links to /content/canadasite/
     $("#btn-canada-links").click(function () {
         var html = $('textarea#textareaID').val()
-            .replace(/<a href="https:\/\/www.canada.ca\/en\//g, '<a href="/content/canadasite/en/')
-            .replace(/<a href="https:\/\/www.canada.ca\/fr\//g, '<a href="/content/canadasite/fr/')
+            .replace(/href="https:\/\/www.canada.ca\/en\//g, 'href="/content/canadasite/en/')
+            .replace(/href="https:\/\/www.canada.ca\/fr\//g, 'href="/content/canadasite/fr/')
         $("textarea#textareaID").val(html);
 
     });
