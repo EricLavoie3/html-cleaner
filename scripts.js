@@ -400,6 +400,10 @@ $(document).ready(function () {
             .replace(/\.\.\.\.\.*\s*\d+<\/a>/g, '</a>')
             .replace(/\.\.\.\.\.*\s*\d+/g, '')
 
+            // Remove target blank from A tags
+            .replace(/ target="_blank"/g, "")
+            .replace(/ target="blank"/g, "")
+
             // Remove duplicate spaces (repeat from beginning)
             .replace(/ (\s+)/g, ' ')
 
@@ -598,6 +602,7 @@ $(document).ready(function () {
                 $(this).replaceWith($(this).html());
             }
         });
+    
 
         //Removes <ins> tag and keeps the content
         div.find('ins').each(function () {
