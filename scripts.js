@@ -380,6 +380,10 @@ $(document).ready(function () {
             .replace(/<\/ul>(\s*)<li>/g, "\</ul>\n</li>\n<li>")
             .replace(/<\/(\w)l>\s*<\/(\w)l>/g, "\</$1l>\n</li>\n</$2l>")
 
+            // Remove empty lists
+            .replace(/<li><\/li>/g, "")
+            .replace(/<ol><\/ol>/g, "")
+            .replace(/<ul><\/ul>/g, "")
 
             // Misc 2
 
@@ -430,6 +434,10 @@ $(document).ready(function () {
             // Replaces space between month and year with non-breaking space
             .replace(/(January|February|March|April|May|June|July|August|September October|November|December) 20(\d{2})/g, "$1&nbsp;20$2")
             .replace(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre) 20(\d{2})/g, "$1 20$2")
+
+            // Replaces space between digit and hours with non-breaking space
+            .replace(/(\d+)\s+hours/g, "$1&nbsp;hours")
+            .replace(/(\d+)\s+heures/g, "$1&nbsp;heures")
 
 
             // Table of contents
