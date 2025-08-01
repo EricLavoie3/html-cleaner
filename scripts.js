@@ -732,6 +732,53 @@ $(document).ready(function () {
         $("textarea#textareaID").scrollTop(0);
     };
 
+    // Converts to MySSC+ footnotes
+    function mysscFootnotes() {
+        var html = $('textarea#textareaID').val();
+        
+        // Find all footnote references and their corresponding content
+        var div = $('<div></div>').html(html);
+        var footnotes = {};
+        
+        // First, collect all footnote contents
+        div.find('dd[id^="fn"]').each(function() {
+            var fnId = $(this).attr('id');
+            // Collect all paragraphs except the return link
+            var content = $(this).find('p:not(.fn-rtn)')
+                .map(function() {
+                    return $(this).prop('outerHTML');
+                })
+                .get()
+                .join('');
+            footnotes[fnId] = content;
+        });
+        
+        // Then replace all references with the custom tag
+        div.find('sup[id^="fn"][id$="-rf"]').each(function() {
+            // Handle both numeric and symbol footnotes by getting the base ID
+            var fnId = $(this).find('a').attr('href').substring(1); // removes the # from href
+            var fnContent = footnotes[fnId];
+            
+            if (fnContent) {
+                fnContent = fnContent.trim();
+                
+                // Check if this is a symbol footnote (non-numeric)
+                var fnText = $(this).find('a').text().trim();
+                var symbol = fnText.match(/[^\d\s]+$/); // Match any non-digit characters at the end
+                var dataValue = symbol ? symbol[0] : "";
+                
+                // Replace the footnote reference with the custom tag
+                $(this).replaceWith('<footnotes data-value="' + dataValue + '" data-text="' + $('<div/>').text(fnContent).html() + '">&nbsp;</footnotes>');
+            }
+        });
+        
+        // Remove the footnotes section
+        div.find('aside.wb-fnote').remove();
+        
+        html = div.html();
+        $("textarea#textareaID").val(html);
+    }
+
     // Converts footnotes to WET footnotes
     function wetFootnotes(language) {
 
@@ -798,6 +845,20 @@ $(document).ready(function () {
         var html = $('textarea#textareaID').val()
             .replace(/\?utm[^"]*/g, '')
         $("textarea#textareaID").val(html);
+    });
+
+    // Convert Word footnotes to WET then MySSC+ format
+    $("#btn-myssc-footnotes").click(function () {
+        var html = $('textarea#textareaID').val();
+        var count = (html.match(/ftn/g) || []).length;
+        
+        // First convert to WET format if Word footnotes are detected. (It converts to English by default)
+        if (count > 0) {
+            wetFootnotes("eng");
+        }
+        
+        // Then convert WET format to MySSC+
+        mysscFootnotes();
     });
 
     // Expand/collapse
