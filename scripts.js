@@ -847,7 +847,7 @@ $(document).ready(function () {
         $("textarea#textareaID").val(html);
     });
 
-    // Convert WET footnotes to custom intranet format
+    // Convert WET footnotes to MySSC+ format
     $("#btn-myssc-footnotes").click(function () {
         mysscFootnotes();
     });
