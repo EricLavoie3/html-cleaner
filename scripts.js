@@ -732,7 +732,7 @@ $(document).ready(function () {
         $("textarea#textareaID").scrollTop(0);
     };
 
-    // Converts WET footnotes to custom intranet footnotes
+    // Converts to MySSC+ footnotes
     function mysscFootnotes() {
         var html = $('textarea#textareaID').val();
         
@@ -847,8 +847,17 @@ $(document).ready(function () {
         $("textarea#textareaID").val(html);
     });
 
-    // Convert WET footnotes to MySSC+ format
+    // Convert Word footnotes to WET then MySSC+ format
     $("#btn-myssc-footnotes").click(function () {
+        var html = $('textarea#textareaID').val();
+        var count = (html.match(/ftn/g) || []).length;
+        
+        // First convert to WET format if Word footnotes are detected. (It converts to English by default)
+        if (count > 0) {
+            wetFootnotes("eng");
+        }
+        
+        // Then convert WET format to MySSC+
         mysscFootnotes();
     });
 
