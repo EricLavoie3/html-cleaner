@@ -840,6 +840,114 @@ $(document).ready(function () {
 
     });
 
+    // Build Canada.ca-style URL from page title (h1 or title or first non-empty line)
+    // Ref: https://design.canada.ca/specifications/mandatory-elements/domains-urls.html#du3a
+    $("#btn-canada-urls").click(function () {
+        const $ta = $("#textareaID");
+        const html = $ta.val() || '';
+        const url = buildCanadaUrlFromHtml(html);
+
+        if (!url) return; // nothing to do
+
+        const comment = `<!-- Suggested URL: ${url} -->\n`;
+
+        // If a suggestion already exists, replace it; otherwise prepend
+        if (html.startsWith('<!-- Suggested URL:')) {
+            $ta.val(html.replace(/<!-- Suggested URL:[^\n]*\n/, comment));
+        } else {
+            $ta.val(comment + html);
+        }
+    });
+
+    // URL builder
+    function buildCanadaUrlFromHtml(html) {
+        const title = extractTitle(html);
+        if (!title) return null;
+
+        const isFrench = detectFrench(title);
+
+        // Turn title into a simple ASCII
+        const shorten = titleToUrl(title, isFrench);
+        if (!shorten) return null;
+
+        // const lang = isFrench ? 'fr' : 'en';
+        // return `/content/canadasite/${lang}/${shorten}`;
+
+        // Return only the shorten portion (no base path)
+        return shorten;
+    }
+
+    // Extract title from the text area input: prefer first <h1>, then <title>, then first text line
+    function extractTitle(html) {
+        if (!html) return null;
+        try {
+            const $d = $('<div>').html(html);
+            const h1 = $d.find('h1').first();
+            if (h1.length && h1.text().trim()) return h1.text().trim();
+            const titleTag = $d.find('title').first();
+            if (titleTag.length && titleTag.text().trim()) return titleTag.text().trim();
+            // fallback: first non-empty line of text
+            const textLines = $d.text().split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+            return textLines.length ? textLines[0] : null;
+        } catch (e) {
+            // fallback to plain text fallback
+            const lines = html.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+            return lines.length ? lines[0] : null;
+        }
+    }
+
+    // function to detect French
+    function detectFrench(text) {
+        return /[éèêàùçôîûœâÄÉÈÊÔÛÎ]/.test(text) || /\b(le|la|les|un|une|de|du|des|pour|avec|sur|dans|et|est)\b/i.test(text);
+    }
+
+    // Convert title to a Canada-style
+    function titleToUrl(title, isFrench) {
+        // Lowercase and remove quotes/apostrophes
+        let s = title.toLowerCase().replace(/[’'`ʹ]/g, '');
+
+        // Basic transliteration map for common accented characters
+        const map = {
+            'à':'a','á':'a','â':'a','ã':'a','ä':'a','å':'a','ā':'a',
+            'ç':'c','ć':'c','č':'c',
+            'è':'e','é':'e','ê':'e','ë':'e','ē':'e',
+            'î':'i','ï':'i','í':'i','ī':'i',
+            'ô':'o','ö':'o','ò':'o','ó':'o','õ':'o','ø':'o',
+            'û':'u','ü':'u','ù':'u','ú':'u','ū':'u',
+            'œ':'oe','æ':'ae','ß':'ss','ñ':'n'
+        };
+        s = s.split('').map(ch => map[ch] || ch).join('');
+
+        // Keep only a-z, 0-9, spaces and hyphens; replace others with space
+        s = s.replace(/[^a-z0-9\s-]/g, ' ');
+
+        // Tokenize
+        let tokens = s.split(/[\s-]+/).filter(Boolean);
+
+        // Stop-words (small lists). French includes 'a' so that 'à' -> 'a' gets removed
+        const stopEn = ['to','the','a','an','by','for','of','how','on','in','and','or','with','is','are','what'];
+        const stopFr = ['de','du','des','la','le','les','un','une','par','pour','sur','dans','et','ou','avec','est','sont','comment','a'];
+        const stop = isFrench ? stopFr : stopEn;
+
+        // Remove stop words but keep numbers and acronyms; ensure we don't remove everything
+        if (tokens.length > 1) {
+            tokens = tokens.filter(t => !stop.includes(t));
+            if (tokens.length === 0) return null;
+        }
+
+        // Remove consecutive duplicates and global duplicates while preserving order
+        const out = [];
+        const seen = new Set();
+        tokens.forEach((t, i) => {
+            if (i > 0 && t === tokens[i-1]) return; // consecutive dup
+            if (!seen.has(t)) { seen.add(t); out.push(t); }
+        });
+
+        // Join with hyphens and trim
+        let shorten = out.join('-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+        return shorten || null;
+    }
+
     // Removes UTM codes
     $("#btn-remove-utm-codes").click(function () {
         var html = $('textarea#textareaID').val()
