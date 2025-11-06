@@ -898,7 +898,7 @@ $(document).ready(function () {
 
     // function to detect French
     function detectFrench(text) {
-        return /[éèêàùçôîûœâÄÉÈÊÔÛÎ]/.test(text) || /\b(le|la|les|un|une|de|du|des|pour|avec|sur|dans|et|est)\b/i.test(text);
+        return /[éèêàùçôîûœâÄÉÈÊÔÛÎ]/.test(text) || /\b(le|la|les|un|une|en|de|du|des|pour|avec|sur|dans|et|est)\b/i.test(text);
     }
 
     // Convert title to a Canada-style
@@ -926,10 +926,10 @@ $(document).ready(function () {
 
         // Stop-words (small lists). French includes 'a' so that 'à' -> 'a' gets removed
         const stopEn = ['to','the','a','an','by','for','of','how','on','in','and','or','with','is','are','what'];
-        const stopFr = ['de','du','des','la','le','les','un','une','par','pour','sur','dans','et','ou','avec','est','sont','comment','a'];
+        const stopFr = ['de','du','des','la','le','les','un','une','en','par','pour','sur','dans','et','ou','avec','est','sont','comment','a'];
         const stop = isFrench ? stopFr : stopEn;
 
-        // Remove stop words but keep numbers and acronyms; ensure we don't remove everything
+        // Remove stop words but keep numbers and acronyms (ensure we don't remove everything)
         if (tokens.length > 1) {
             tokens = tokens.filter(t => !stop.includes(t));
             if (tokens.length === 0) return null;
