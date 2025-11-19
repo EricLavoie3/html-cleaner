@@ -849,13 +849,13 @@ $(document).ready(function () {
 
         if (!url) return; // nothing to do
 
-        const comment = `<!-- Suggested URL: ${url} -->\n`;
+        const comment = `${url}`;
 
         // If a suggestion already exists, replace it; otherwise prepend
         if (html.startsWith('<!-- Suggested URL:')) {
             $ta.val(html.replace(/<!-- Suggested URL:[^\n]*\n/, comment));
         } else {
-            $ta.val(comment + html);
+            $ta.val(comment);
         }
     });
 
