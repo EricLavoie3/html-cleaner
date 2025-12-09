@@ -106,18 +106,20 @@ $(document).ready(function () {
             // Removes space between quotes and end of tag
             .replace(/"(\s+)>/g, '">')
 
-            // Removes duplcate non-breaking spaces, but check first if it's part of comment code
-            .replace(/(&nbsp;)+/g, "&nbsp;")
+           
 
-        //Removes &nbsp after Word comments code
-        if (language == "eng") {
-            html = html.replace(/(name="_msoanchor_\d+">\[[^\]]+\]<\/a>)&nbsp;/g, "$1")
-        } else if (language == "fra") {
-            html = html.replace(/(name="_msoanchor_\d+">\[[^\]]+\]<\/a>)&nbsp;(?![:–])/g, "$1")
-        };
+            //Removes &nbsp after Word comments code
+            if (language == "eng") {
+                html = html.replace(/(name="_msoanchor_\d+">\[[^\]]+\]<\/a>)&nbsp;/g, "$1")
+            } else if (language == "fra") {
+                html = html.replace(/(name="_msoanchor_\d+">\[[^\]]+\]<\/a>)&nbsp;(?![:–])/g, "$1")
+            };
 
-        // Removes non breaking space before closing p tag
-        html = html.replace(/&nbsp;<\/p/g, "</p")
+             // Removes duplcate non-breaking spaces, but check first if it's part of comment code
+            html = html.replace(/(&nbsp;)+/g, "&nbsp;")
+
+            // Removes non breaking space before closing p tag
+            .replace(/&nbsp;<\/p/g, "</p")
 
 
             // Links //
