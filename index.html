@@ -33,6 +33,7 @@
             <li class="action-item"><button id="btn-details-summary-fra">H2 to details/summary FR</button></li>
             <li class="action-item"><button id="btn-remove-utm-codes">Remove UTM codes</button></li>
             <li class="action-item"><button id="btn-canada-links">Canada.ca links (only for Canada.ca pages)</button></li>
+            <li class="action-item"><button id="btn-canada-urls">Canada.ca h1 to URL (only for Canada.ca pages)</button></li>
             <li class="action-item"><button id="btn-copy-code">Copy code</button></li>
         </ul>
 
@@ -109,11 +110,17 @@
                         <ul>
                             <li>Removes UTM codes from links that accidentally contains them</li>
                         </ul>
+
+                        <h2 class="h3">Canada.ca h1 to URL <span class="fs-6">(only for Canada.ca pages)</span></h2>
+
+                        <ul>
+                            <li>Extract title from the text area input: prefer first <code>&lt;h1&gt;</code>, then <code>&lt;title&gt;</code>, then first text line</li>
+                            <li><a href="https://design.canada.ca/specifications/mandatory-elements/domains-urls.html#du3a">Canada.ca URL rules</a></li>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="clearfix">&nbsp;</div>
 
         <textarea id="textareaID" placeholder="Paste your HTML here"></textarea>
