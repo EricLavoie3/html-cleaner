@@ -612,7 +612,24 @@ $(document).ready(function () {
                 $(this).replaceWith($(this).html());
             }
         });
-    
+
+        // Decode Outlook SafeLinks
+        div.find('a[href*="safelinks.protection.outlook.com"]').each(function () {
+            let href = $(this).attr('href');
+
+            try {
+                const urlObj = new URL(href);
+                let realUrl = urlObj.searchParams.get("url") || urlObj.searchParams.get("target");
+
+                if (realUrl) {
+                    realUrl = decodeURIComponent(realUrl);
+                    $(this).attr('href', realUrl);
+                }
+            } catch (e) {
+                // Ignore malformed URLs
+            }
+        });
+            
 
         //Removes <ins> tag and keeps the content
         div.find('ins').each(function () {
